@@ -26,6 +26,11 @@ def main():
     parser.add_argument('--prompt_file', type=str, help='path to prompts file', default='')
     parser.add_argument('--prompt_name', type=str, help='name of the prompt to use', default='')
 
+    # sampling ON or OFF
+    parser.add_argument('--sample', dest='sample', action='store_true', help='boolean flag to set if model is merging')
+    parser.add_argument('--no-sample', dest='sample', action='store_true', help='boolean flag to set if model is merging')
+    parser.set_defaults(sample=True)
+    
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
 

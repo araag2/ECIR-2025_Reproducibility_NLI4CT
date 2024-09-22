@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=$1
+CUDA_VISIBLE_DEVICES=1
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
 EXP_NAME=baseline_Mistral-7B_zero-shot
 USED_SET=test

@@ -112,7 +112,7 @@ def safe_open_w(path: str):
 
 
 def calc_scores(predictions : dict, predictions_name : str, output_dir : str):
-    gold = json.load(open('../../data/SemEval-2024/corpus/SemEval2024_gold-test.json'))
+    gold = json.load(open('data/SemEval-2024/corpus/SemEval2024_gold-test.json'))
 
     # Control Test Set F1, Recall, Precision PUBLIC
     Control_F1, Control_Rec, Control_Prec = F1_Recall_Precision(extract_control_set(predictions, gold), gold)
