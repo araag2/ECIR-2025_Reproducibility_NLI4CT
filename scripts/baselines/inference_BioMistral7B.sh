@@ -1,11 +1,11 @@
-CUDA_VISIBLE_DEVICES=2
-MODEL=mistralai/Mistral-7B-Instruct-v0.2
-EXP_NAME=baseline_Mistral-7B_zero-shot_short-prompt_No-Sample
+CUDA_VISIBLE_DEVICES=4
+MODEL=BioMistral/BioMistral-7B-DARE
+EXP_NAME=baseline_BioMistral-7B-DARE_zero-shot_long-prompt_No-Sample
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
-PROMPT_NAME=Mistral7B_short-prompt
+PROMPT_NAME=Mistral7B_long-prompt
 OUTPUT_DIR=outputs/
 
 CUDA_VISIBLE_DEVICES=1 python -m src.inference.baseline_inference \

@@ -65,4 +65,4 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
         preds = label_2_SemEval2024(pred_labels)
         output_file.write(json.dumps(preds, ensure_ascii=False, indent=4))
 
-        calc_scores(preds, f'{exp_name if exp_name != "" else ""}{timestamp}_{used_set}-set.json', args.output_dir)
+        calc_scores(preds, f'{exp_name if exp_name != "" else ""}_{timestamp}_{used_set}-set.json', args.output_dir)

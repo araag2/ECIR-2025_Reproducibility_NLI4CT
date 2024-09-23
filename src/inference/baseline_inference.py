@@ -28,7 +28,7 @@ def main():
 
     # sampling ON or OFF
     parser.add_argument('--sample', dest='sample', action='store_true', help='boolean flag to set if model is merging')
-    parser.add_argument('--no-sample', dest='sample', action='store_true', help='boolean flag to set if model is merging')
+    parser.add_argument('--no_sample', dest='sample', action='store_false', help='boolean flag to set if model is merging')
     parser.set_defaults(sample=True)
     
     # Output directory
