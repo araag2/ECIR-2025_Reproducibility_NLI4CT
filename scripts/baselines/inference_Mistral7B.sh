@@ -8,7 +8,7 @@ PROMPT_FILE=src/prompts/Baseline_Prompts.json
 PROMPT_NAME=Mistral7B_short-prompt
 OUTPUT_DIR=outputs/
 
-CUDA_VISIBLE_DEVICES=1 python -m src.inference.baseline_inference \
+python -m src.inference.baseline_inference \
     --model $MODEL\
     --exp_name $EXP_NAME \
     --used_set $USED_SET \

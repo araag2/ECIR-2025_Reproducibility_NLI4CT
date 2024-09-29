@@ -38,6 +38,7 @@ def tokenize_generate_five_decode(model : object, tokenizer : object, text : str
 
 def query_inference(model : object, tokenizer : object, queries : dict, do_sample : bool = True) -> dict:
     res_labels = {}
+    answers = {}
 
     with torch.inference_mode():
         for q_id in tqdm(queries):
@@ -45,8 +46,9 @@ def query_inference(model : object, tokenizer : object, queries : dict, do_sampl
 
             decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
 
+            answers[q_id] = decoded_output_sub
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" "))
-    return res_labels
+    return res_labels, answers
 
 
 def output_prompt_labels(model : object, tokenizer : object, queries : dict, prompt : str, args : object, used_set : str):
@@ -54,11 +56,14 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     queries_dict = create_qdid_prompt(queries, prompt)
 
     # 0-shot inference from queries
-    pred_labels = query_inference(model, tokenizer, queries_dict, args.sample)
+    pred_labels, answers = query_inference(model, tokenizer, queries_dict, args.sample)
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     exp_name = args.exp_name if "exp_name" in args else ""
+
+    with safe_open_w(f'{args.output_dir}{exp_name if exp_name != "" else ""}_FULL-ANSWERS_{timestamp}_{used_set}-set.json') as output_file:
+        output_file.write(json.dumps(answers, ensure_ascii=False, indent=4))
 
     # Output results
     with safe_open_w(f'{args.output_dir}{exp_name if exp_name != "" else ""}_{timestamp}_{used_set}-set.json') as output_file:

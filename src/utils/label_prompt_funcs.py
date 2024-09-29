@@ -9,9 +9,9 @@ CONTRADICTION_LABELS = {"contradiction", "not", "no", "n", "no.", "(no)"}
 
 def textlabel_2_binarylabel(text_label: list[str]) -> int:
     for label in text_label:
-        if label.lower() in ENTAILMENT_LABELS:
+        if label.lower() in ENTAILMENT_LABELS or label[:3].lower() in ENTAILMENT_LABELS:
             return 1
-        elif label.lower() in CONTRADICTION_LABELS:
+        elif label.lower() in CONTRADICTION_LABELS or label[:2].lower() in CONTRADICTION_LABELS:
             return 0
     return 1 # In case of no label, default to Entailment
 
