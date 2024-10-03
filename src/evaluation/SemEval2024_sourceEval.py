@@ -111,7 +111,7 @@ def safe_open_w(path: str):
     return open(path, 'w', encoding='utf8')
 
 
-def calc_scores(predictions : dict, predictions_name : str, output_dir : str):
+def calc_scores(predictions : dict, predictions_name : str, output_dir : str, args : object = None):
     gold = json.load(open('data/SemEval-2024/corpus/SemEval2024_gold-test.json'))
 
     # Control Test Set F1, Recall, Precision PUBLIC
@@ -151,54 +151,68 @@ def calc_scores(predictions : dict, predictions_name : str, output_dir : str):
     definitions_F1, definitions_Rec, definitions_Prec = F1_Recall_Precision(definitions_predictions, gold)
 
     with safe_open_w(f'{output_dir}SCORES-{predictions_name[:-5]}.txt') as f:
-        print(f'Scores for file: {predictions_name}\n', file=f)
+        print(f'# Full Evaluation Scores\n', file=f)
+        print(f'File name: {predictions_name}\n', file=f)
 
-        print(f'Overall Control Score\n', file=f)
-        print(f'Control_F1: {Control_F1:.3f}', file=f)
+        print(f'\n---\n', file=f)
+
+        print(f'## Overall Control Score\n', file=f)
+        print(f'**Official Metric ->** Control_F1: {Control_F1:.3f}', file=f)
         print(f'Control_Precision: {Control_Prec:.3f}', file=f)
         print(f'Control_Recall: {Control_Rec:.3f}', file=f)
 
-        print(f'\nOverall Contrast Score', file=f)
+        print(f'\n## Overall Contrast Score\n', file=f)
         print(f'Contrast_F1: {Contrast_F1:.3f}', file=f)
         print(f'Contrast_Precision: {Contrast_Prec:.3f}', file=f)
         print(f'Contrast_Recall: {Contrast_Rec:.3f}', file=f)
-        print(f'Faithfulness: {Faithfulness:.3f}', file=f)
-        print(f'Consistency: {Consistency:.3f}', file=f)
+        print(f'**Official Metric ->** Faithfulness: {Faithfulness:.3f}', file=f)
+        print(f'**Official Metric ->** Consistency: {Consistency:.3f}', file=f)
 
-        print(f'\nParaphrase Scores', file=f)
-        print(f'\nText Paraphrase', file=f)
+        print(f'\n---\n', file=f)
+
+        print(f'\n## Paraphrase Scores\n', file=f)
+        print(f'\n### Text Paraphrase\n', file=f)
         print(f'Para_F1: {para_F1:.3f}', file=f)
         print(f'Para_Precision: {para_Prec:.3f}', file=f)
         print(f'Para_Recall: {para_Rec:.3f}', file=f)
         print(f'Para_Consistency: {para_Consistency:.3f}\n', file=f)
 
-        print(f'Numerical Paraphrase', file=f)
+        print(f'\n### Numerical Paraphrase\n', file=f)
         print(f'Numerical_Para_F1: {numerical_para_F1:.3f}', file=f)
         print(f'Numerical_Para_Precision: {numerical_para_Prec:.3f}', file=f)
         print(f'Numerical_Para_Recall: {numerical_para_Rec:.3f}', file=f)
         print(f'Numerical_Para_Consistency: {numerical_para_Consistency:.3f}\n', file=f)
 
 
-        print(f'Contradiction Scores', file=f)
-        print(f'Text Contradiction', file=f)
+        print(f'\n## Contradiction Scores\n', file=f)
+        print(f'\n### Text Contradiction\n', file=f)
         print(f'Cont_F1: {cont_F1:.3f}', file=f)
         print(f'Cont_Precision: {cont_Prec:.3f}', file=f)
         print(f'Cont_Recall: {cont_Rec:.3f}', file=f)
         print(f'Cont_Faithfulness: {cont_Faithfulness:.3f}', file=f)
         print(f'Cont_Consistency: {cont_Consistency:.3f}\n', file=f)
 
-        print(f'Numerical Contradiction', file=f)
+        print(f'\n### Numerical Contradiction\n', file=f)
         print(f'Numerical_Cont_F1: {numerical_cont_F1:.3f}', file=f)
         print(f'Numerical_Cont_Precision: {numerical_cont_Prec:.3f}', file=f)
         print(f'Numerical_Cont_Recall: {numerical_cont_Rec:.3f}', file=f)
         print(f'Numerical_Cont_Faithfulness: {numerical_cont_Faithfulness:.3f}', file=f)
         print(f'Numerical_Cont_Consistency: {numerical_cont_Consistency:.3f}\n', file=f)
 
-        print(f'Text_Append Scores', file=f)
+        print(f'\n## Text_Append Scores\n', file=f)
         print(f'Text_Append_F1: {definitions_F1:.3f}', file=f)
         print(f'Text_Append_Precision: {definitions_Prec:.3f}', file=f)
         print(f'Text_Append_Recall: {definitions_Rec:.3f}', file=f)
         print(f'Text_Append_Consistency: {definitions_Consistency:.3f}', file=f)
+
+        print(f'\n---\n', file=f)
+
+        if args != None:
+            print(f'## Full Arg List\n', file=f)
+            for arg in vars(args):
+                print(f'{arg} = {getattr(args, arg)}', file=f)
+
+        print(f'\n---\n', file=f)
 
 
 def main():

@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument('--tokenizer_name', type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help='tokenizer to use for the model')
 
     parser.add_argument('--merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
-    parser.add_argument('--no-merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
+    parser.add_argument('--no-merge', dest='merge', action='store_false', help='boolean flag to set if model is merging')
     parser.set_defaults(merge=False)
 
     parser.add_argument('--checkpoint', type=str, help='path to model checkpoint, used if merging', default="models/pre-train_run-1_complete-eligibility-info_base-prompt/checkpoint-18597/")
@@ -34,9 +34,6 @@ def parse_args():
 
     # I/O paths for models, CT, queries and qrels
     parser.add_argument('--save_dir', type=str, default="models/pre-train-complete-eligibility_plus_base-task-tamplate/", help='path to model save dir')
-
-    parser.add_argument("--queries", default="queries/", type=str)
-    parser.add_argument("--qrels", default="qrels/", type=str)
 
     parser.add_argument("--train_data", default="data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_train-set.json", type=str)
     parser.add_argument("--eval_data", default="data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json", type=str)

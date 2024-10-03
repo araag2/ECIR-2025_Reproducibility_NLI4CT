@@ -164,5 +164,7 @@ cython_debug/
 # My gitignores
 
 models/
+wandb/
 # For now, not keeping outputs
 outputs/
+!outputs/paper_baselines/*

@@ -5,7 +5,7 @@ import typing
 from .file_utils import safe_open_w
 
 ENTAILMENT_LABELS = {"entailment", "yes", "y", "yes.", "(yes)"}
-CONTRADICTION_LABELS = {"contradiction", "not", "no", "n", "no.", "(no)"}
+CONTRADICTION_LABELS = {"contradiction", "not", "no", "n", "no.", "(no)", "✗"}
 
 def textlabel_2_binarylabel(text_label: list[str]) -> int:
     for label in text_label:
