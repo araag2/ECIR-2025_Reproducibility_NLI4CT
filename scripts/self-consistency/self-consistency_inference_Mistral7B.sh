@@ -6,6 +6,11 @@ QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/CoT_Prompts.json
 PROMPT_NAME=Mistral7B_CoT-prompt
 OUTPUT_DIR=outputs/
+MAX_NEW_TOKENS=5
+TEMPERATURE=0.7
+TOP_K=50
+TOP_P=0.95
+NUM_RETURN_SEQUENCES=10
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
@@ -16,6 +21,9 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --prompt_file $PROMPT_FILE \
     --prompt_name $PROMPT_NAME \
     --output_dir $OUTPUT_DIR \
-    --task_type CoT_inference \
-    --max_new_tokens 500 \
-    --no_sample
+    --task_type self-consistency_inference \
+    --max_new_tokens $MAX_NEW_TOKENS \
+    --temperature $TEMPERATURE \
+    --top_k $TOP_K \
+    --top_p $TOP_P \
+    --num_return_sequences $NUM_RETURN_SEQUENCES

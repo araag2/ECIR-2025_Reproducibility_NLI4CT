@@ -33,10 +33,11 @@ def main():
     parser.add_argument('--no_sample', dest='sample', action='store_false', help='boolean flag to set if model is merging')
     parser.set_defaults(sample=True)
 
-    parser.add_argument('--max_new_tokens', type=int, help='sets the number of new tokens to generate when decoding', default=100)
+    parser.add_argument('--max_new_tokens', type=int, help='sets the number of new tokens to generate when decoding', default=5)
     parser.add_argument('--temperature', type=float, help='generation param that sets the model stability', default=1)
     parser.add_argument('--top_k', type=int, default=15)
     parser.add_argument('--top_p', type=float, default=0.7)
+    parser.add_argument('--num_return_sequences', type=int, default=1)  
     parser.set_defaults(sample=True)
     
     # Task Type
@@ -55,7 +56,7 @@ def main():
         device_map= {"": 0}, attn_implementation="flash_attention_2"
     )
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model)
+    tokenizer = AutoTokenizer.from_pretrained(args.model) if "llama" not in args.model else AutoTokenizer.from_pretrained(args.model, padding_side="left")
     tokenizer.pad_token_id = tokenizer.eos_token_id
 
     # Load dataset, queries, qrels and prompts

@@ -1,5 +1,5 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-EXP_NAME=baseline_Mistral-7B_zero-shot_short-prompt_Sample
+EXP_NAME=baseline_Mistral-7B_zero-shot_short-prompt_Greedy
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
@@ -17,5 +17,5 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --prompt_name $PROMPT_NAME \
     --output_dir $OUTPUT_DIR \
     --task_type base_inference \
-    #--no_sample \
+    --no_sample \
     

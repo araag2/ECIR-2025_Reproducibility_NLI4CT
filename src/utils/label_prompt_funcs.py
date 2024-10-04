@@ -4,14 +4,25 @@ import typing
 # Local Files
 from .file_utils import safe_open_w
 
-ENTAILMENT_LABELS = {"entailment", "yes", "y", "yes.", "(yes)"}
-CONTRADICTION_LABELS = {"contradiction", "not", "no", "n", "no.", "(no)", "✗"}
+ENTAILMENT_LABELS = {"entailment", "entails", "yes", "y", "yes.", "(yes)"}
+CONTRADICTION_LABELS = {"contradiction", "contradicts", "not", "no", "n", "no.", "(no)", "✗"}
+
+#TO:DO Reimplement this function using 10/ 11 / 12 incrementing splits
+def textlabelgroup_2_binarylabel(group_split_texts: list[list[str]]) -> int:
+    answers = []
+    for text in group_split_texts:
+        for label in text:
+            if label.lower() in ENTAILMENT_LABELS:
+                answers.append(1)
+            elif label.lower() in CONTRADICTION_LABELS:
+                answers.append(0)
+    return answers.count(1) >= answers.count(0)
 
 def textlabel_2_binarylabel(text_label: list[str]) -> int:
     for label in text_label:
-        if label.lower() in ENTAILMENT_LABELS or label[:3].lower() in ENTAILMENT_LABELS:
+        if label.lower() in ENTAILMENT_LABELS:
             return 1
-        elif label.lower() in CONTRADICTION_LABELS or label[:2].lower() in CONTRADICTION_LABELS:
+        elif label.lower() in CONTRADICTION_LABELS:
             return 0
     return 1 # In case of no label, default to Entailment
 
@@ -35,7 +46,10 @@ def extract_info_from_query(query : dict, task_type : str = "base") -> dict:
 
 def generate_query_from_prompt(text_to_replace: dict, prompt: str, task_type : str = "base") -> str:
     prompt = prompt.replace("$primary_evidence", text_to_replace["primary_evidence"])
-    prompt = prompt.replace("$secondary_evidence", text_to_replace["secondary_evidence"])
+    if text_to_replace["secondary_evidence"] != "":
+        prompt = prompt.replace("$secondary_evidence", text_to_replace["secondary_evidence"])
+    else:
+        prompt = prompt.replace("\nSecondary Trial:\n$secondary_evidence\n", "")
     prompt = prompt.replace("$hypothesis", text_to_replace["hypothesis"])
     if task_type in TASK_TYPES:
         for field in TASK_TYPES[task_type]:
