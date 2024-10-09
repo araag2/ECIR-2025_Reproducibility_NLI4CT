@@ -1,0 +1,3 @@
+{
+    "Mistral7B" : "<s>[INST]You are a helpful assistant specialized in analysing Clinical Trial Reports.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:$hypothesis\n\nQuestion: Answer in 1 word (Yes or No). Is the statement entailed by the Evidence?\n[/INST] Answer: "
+}

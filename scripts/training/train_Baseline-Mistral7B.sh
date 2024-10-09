@@ -3,7 +3,7 @@ TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
 #MERGE
 CHECKPOINT=None
 EXP_NAME=baseline_Mistral-7B_training_long-prompt
-RUN=1
+RUN=2
 SAVE_DIR=outputs/models/
 TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_train-set.json
 EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
@@ -13,10 +13,10 @@ MAX_LENGTH=4000
 BATCH_SIZE=1
 POOLING=mean
 TRAIN_EPOCHS=5
-LR=2e-5
-LORA_R=64
-LORA_DROPOUT=0.1
-LORA_ALPHA=16
+LR=1e-5
+LORA_R=8
+LORA_DROPOUT=0.0
+LORA_ALPHA=32
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --model_name $MODEL \

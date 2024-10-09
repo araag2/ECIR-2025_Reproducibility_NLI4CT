@@ -1,15 +1,16 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-EXP_NAME=CoT_Mistral-7B
+EXP_NAME=self-consistency_Mistral-7B
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
-PROMPT_FILE=src/prompts/CoT_Prompts.json
-PROMPT_NAME=Mistral7B_CoT-prompt
+PROMPT_FILE=src/prompts/self-consistency_prompts.json
+PROMPT_NAME=Mistral7B
 OUTPUT_DIR=outputs/
-MAX_NEW_TOKENS=5
+BATCH_SIZE=1
+MAX_NEW_TOKENS=50
 TEMPERATURE=0.7
 TOP_K=50
-TOP_P=0.95
+TOP_P=0.99
 NUM_RETURN_SEQUENCES=10
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
@@ -22,6 +23,7 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --prompt_name $PROMPT_NAME \
     --output_dir $OUTPUT_DIR \
     --task_type self-consistency_inference \
+    --batch_size $BATCH_SIZE \
     --max_new_tokens $MAX_NEW_TOKENS \
     --temperature $TEMPERATURE \
     --top_k $TOP_K \

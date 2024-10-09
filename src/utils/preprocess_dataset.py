@@ -15,7 +15,7 @@ def preprocess_dataset(args : argparse, prompt : str , used_set : str):
         example = set_examples[q_id]
         set_dict["id"].append(q_id)
         label = "YES" if example["gold_label"] == 1 else "NO"
-        set_dict["text"].append(f'{example["text"]} Answer: {label}')
+        set_dict["text"].append(f'{example["text"]} {label}')
     return set_dict
 
 def preprocess_conjoint_dataset(args : argparse, used_set : str):

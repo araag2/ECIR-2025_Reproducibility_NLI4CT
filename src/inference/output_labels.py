@@ -74,11 +74,18 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
             elif args.task_type == 'CoT_inference':
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 reverse_answer = answers[query_keys[i]].split(" ")[::-1]
-                res_labels[query_keys[i]] = textlabel_2_binarylabel(reverse_answer[:15] + answers[query_keys[i]].split(" ")[15])
+
+                res_labels[query_keys[i]] = textlabel_2_binarylabel(reverse_answer[:25][::-1] + answers[query_keys[i]].split(" "))
 
             elif args.task_type == 'self-consistency_inference':
                 answers[query_keys[i]] = [clean_text(answer) for answer in batched_answers[i*args.num_return_sequences:(i+1)*args.num_return_sequences]]
-                res_labels[query_keys[i]] = textlabelgroup_2_binarylabel([answer.split(" ") for answer in answers[query_keys[i]]], args.num_return_sequences) 
+                res_labels[query_keys[i]] = textlabelgroup_2_binarylabel([answer.split(" ") for answer in answers[query_keys[i]]])
+
+            elif args.task_type == 'self-consistency_CoT_inference':
+                answers[query_keys[i]] = [clean_text(answer) for answer in batched_answers[i*args.num_return_sequences:(i+1)*args.num_return_sequences]]
+                reverse_answers = [answer.split(" ")[::-1] for answer in answers[query_keys[i]]]
+
+                res_labels[query_keys[i]] = textlabelgroup_2_binarylabel([reverse_answers[j][:25][::-1] + answers[query_keys[i]][j].split(" ") for j in range(len(reverse_answers))])
 
     return res_labels, answers
 
@@ -88,15 +95,11 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     queries_dict, pred_labels, answers = None, None, None
 
     # Replace prompt with query info
-    if args.task_type == 'base_inference' or args.task_type == "CoT_inference" or args.task_type == "self-consistency_inference":
-        queries_dict = create_qdid_prompt(queries, prompt)
-        pred_labels, answers = query_inference(model, tokenizer, queries_dict, args)
+    queries_dict = create_qdid_prompt(queries, prompt)
+    pred_labels, answers = query_inference(model, tokenizer, queries_dict, args)
 
     # TO:DO ICL Params
     #elif args.task_type == "ICL_inference":
-    #    queries_dict = create_qdid_prompt(queries, prompt)
-
-    #elif args.task_type == "self-consistency_inference":
     #    queries_dict = create_qdid_prompt(queries, prompt)
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -111,6 +114,7 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
         preds = label_2_SemEval2024(pred_labels)
         output_file.write(json.dumps(preds, ensure_ascii=False, indent=4))
 
+        print(f'Calc Scores')
         calc_scores(preds, f'{exp_name if exp_name != "" else ""}_{timestamp}_{used_set}-set.json', args.output_dir, args)
 
 #def example_inference(model : object, tokenizer : object, queries : dict) -> dict:

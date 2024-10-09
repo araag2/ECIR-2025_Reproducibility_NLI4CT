@@ -4,25 +4,38 @@ import typing
 # Local Files
 from .file_utils import safe_open_w
 
-ENTAILMENT_LABELS = {"entailment", "entails", "yes", "y", "yes.", "(yes)"}
-CONTRADICTION_LABELS = {"contradiction", "contradicts", "not", "no", "n", "no.", "(no)", "✗"}
+ENTAILMENT_LABELS = {"entailment", "entails", "entailed", "yes", "(yes)"}
+CONTRADICTION_LABELS = {"contradiction", "contradicts", "contradicted", "no", "(no)", "✗"}
+
+NEG_LABELS = {"not", "no", "isn't"}
+CONJ_LABELS = {"a", "directly", "necessarily"}
 
 #TO:DO Reimplement this function using 10/ 11 / 12 incrementing splits
 def textlabelgroup_2_binarylabel(group_split_texts: list[list[str]]) -> int:
     answers = []
-    for text in group_split_texts:
-        for label in text:
-            if label.lower() in ENTAILMENT_LABELS:
+    for text_label in group_split_texts:
+        for i in range(len(text_label)):
+            if text_label[i].lower() in ENTAILMENT_LABELS:
+                if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+                    answers.append(0)
                 answers.append(1)
-            elif label.lower() in CONTRADICTION_LABELS:
+                break
+            elif text_label[i] in CONTRADICTION_LABELS:
+                if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+                    answers.append(1)
                 answers.append(0)
+                break
     return answers.count(1) >= answers.count(0)
 
 def textlabel_2_binarylabel(text_label: list[str]) -> int:
-    for label in text_label:
-        if label.lower() in ENTAILMENT_LABELS:
+    for i in range(len(text_label)):
+        if text_label[i].lower() in ENTAILMENT_LABELS:
+            if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+                return 0
             return 1
-        elif label.lower() in CONTRADICTION_LABELS:
+        elif text_label[i] in CONTRADICTION_LABELS:
+            if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+                return 1
             return 0
     return 1 # In case of no label, default to Entailment
 

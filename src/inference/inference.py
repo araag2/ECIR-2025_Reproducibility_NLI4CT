@@ -12,9 +12,15 @@ from .output_labels import output_prompt_labels
 def main():
     parser = argparse.ArgumentParser()
 
-    # Model and checkpoint paths, including a merging flag
+    # Model and checkpoint paths
     parser.add_argument('--model', type=str, help='name of the model used to generate and combine prompts', default='')
     parser.add_argument('--exp_name', type=str, help='name of the experiment', default='')
+
+    # Merge Params
+    parser.add_argument('--checkpoint', type=str, help='path to model checkpoint, used if merging', default="")
+    parser.add_argument('--merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
+    parser.add_argument('--no-merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
+    parser.set_defaults(merge=False)
 
     # Path to queries, qrels and prompt files
     parser.add_argument('--used_set', type=str, help='choose which data to use', default='') # train | dev | test
@@ -33,15 +39,19 @@ def main():
     parser.add_argument('--no_sample', dest='sample', action='store_false', help='boolean flag to set if model is merging')
     parser.set_defaults(sample=True)
 
-    parser.add_argument('--max_new_tokens', type=int, help='sets the number of new tokens to generate when decoding', default=5)
-    parser.add_argument('--temperature', type=float, help='generation param that sets the model stability', default=1)
+    parser.add_argument('--max_new_tokens', type=int, help='sets the number of new tokens to generate when decoding', default=10)
+    parser.add_argument('--temperature', type=float, help='generation param that sets the model stability', default=0.5)
     parser.add_argument('--top_k', type=int, default=15)
     parser.add_argument('--top_p', type=float, default=0.7)
     parser.add_argument('--num_return_sequences', type=int, default=1)  
     parser.set_defaults(sample=True)
     
     # Task Type
-    parser.add_argument('--task_type', type=str, help='task type to run', default='base_inference', choices=['base_inference', 'CoT_inference', 'ICL_inference' , 'CoT-ICL_inference', 'self-consistency_inference'])
+    parser.add_argument('--task_type', type=str, help='task type to run', default='base_inference', choices=['base_inference', 
+    'CoT_inference', 
+    'ICL_inference', 
+    'CoT-ICL_inference', 
+    'self-consistency_inference', 'self-consistency_CoT_inference'])
 
     # TO:DO ICL Params
 
