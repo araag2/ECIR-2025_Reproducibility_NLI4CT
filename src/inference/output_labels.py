@@ -95,27 +95,21 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     queries_dict, pred_labels, answers = None, None, None
 
     # Replace prompt with query info
-    queries_dict = create_qdid_prompt(queries, prompt)
+    queries_dict = create_qdid_prompt(queries, prompt, args)
     pred_labels, answers = query_inference(model, tokenizer, queries_dict, args)
-
-    # TO:DO ICL Params
-    #elif args.task_type == "ICL_inference":
-    #    queries_dict = create_qdid_prompt(queries, prompt)
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     exp_name = args.exp_name if "exp_name" in args else ""
 
-    with safe_open_w(f'{args.output_dir}{exp_name if exp_name != "" else ""}_FULL-ANSWERS_{timestamp}_{used_set}-set.json') as output_file:
-        output_file.write(json.dumps(answers, ensure_ascii=False, indent=4))
-
     # Output results
-    with safe_open_w(f'{args.output_dir}{exp_name if exp_name != "" else ""}_{timestamp}_{used_set}-set.json') as output_file:
+    with safe_open_w(f'{args.output_dir}FULL-ANSWERS_{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json') as output_file:
         preds = label_2_SemEval2024(pred_labels)
-        output_file.write(json.dumps(preds, ensure_ascii=False, indent=4))
+        output_formatting = {key : {'text_answer' : answers[key], 'label' : preds[key]["Prediction"]} for key in answers}
+        output_file.write(json.dumps(output_formatting, ensure_ascii=False, indent=4))
 
         print(f'Calc Scores')
-        calc_scores(preds, f'{exp_name if exp_name != "" else ""}_{timestamp}_{used_set}-set.json', args.output_dir, args)
+        calc_scores(preds, f'{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json', args.output_dir, args)
 
 #def example_inference(model : object, tokenizer : object, queries : dict) -> dict:
 #    res_labels = {}

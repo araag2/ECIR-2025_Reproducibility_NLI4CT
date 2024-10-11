@@ -6,6 +6,7 @@ QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
 PROMPT_NAME=Mistral7B_short-prompt
 OUTPUT_DIR=outputs/
+SEED=2
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
@@ -17,4 +18,5 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --prompt_name $PROMPT_NAME \
     --output_dir $OUTPUT_DIR \
     --task_type base_inference \
+    --random_seed $SEED \
     --no_sample

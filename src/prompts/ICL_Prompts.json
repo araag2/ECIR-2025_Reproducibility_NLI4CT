@@ -1,0 +1,8 @@
+{
+        "icl-1_EDI-label-only-Mistral7B_prompt" : "<s>[INST]You are a helpful assistant.\n\n$icl_1\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:\n$hypothesis\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment?[/INST]\nAnswer: $answer </s>",
+
+        "icl-2_EDI-label-only-Mistral7B_prompt" : "<s>[INST]You are a helpful assistant.\n\n$icl_1\n\n$icl_2\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:\n$hypothesis\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment?[/INST]\nAnswer: $answer </s>",
+        
+        "icl-1_FZI-CoT-Mistral7B_prompt" : "$icl_1<s>[INST]You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:$hypothesis\nVerify whether the statement is entailed in the trials with Entailment or Contradiction.[/INST]Let's verify it step by step:</s>",
+        "icl-2_FZI-CoT-Mistral7B_prompt" : "$icl_1\n$icl_2\n<s>[INST]You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:$hypothesis\nVerify whether the statement is entailed in the trials with Entailment or Contradiction.[/INST]Let's verify it step by step:</s>"
+}

@@ -14,27 +14,29 @@ CONJ_LABELS = {"a", "directly", "necessarily"}
 def textlabelgroup_2_binarylabel(group_split_texts: list[list[str]]) -> int:
     answers = []
     for text_label in group_split_texts:
+        text_label = [text.lower() for text in text_label]
         for i in range(len(text_label)):
-            if text_label[i].lower() in ENTAILMENT_LABELS:
-                if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+            if text_label[i] in ENTAILMENT_LABELS:
+                if (i > 2 and text_label[i-2] in NEG_LABELS and text_label[i-1] in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
                     answers.append(0)
                 answers.append(1)
                 break
             elif text_label[i] in CONTRADICTION_LABELS:
-                if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+                if (i > 2 and text_label[i-2] in NEG_LABELS and text_label[i-1] in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
                     answers.append(1)
                 answers.append(0)
                 break
     return answers.count(1) >= answers.count(0)
 
 def textlabel_2_binarylabel(text_label: list[str]) -> int:
+    text_label = [text.lower() for text in text_label]
     for i in range(len(text_label)):
-        if text_label[i].lower() in ENTAILMENT_LABELS:
-            if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+        if text_label[i] in ENTAILMENT_LABELS:
+            if (i > 2 and text_label[i-2] in NEG_LABELS and text_label[i-1] in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
                 return 0
             return 1
         elif text_label[i] in CONTRADICTION_LABELS:
-            if (i > 2 and text_label[i-2].lower() in NEG_LABELS and text_label[i-1].lower() in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
+            if (i > 2 and text_label[i-2] in NEG_LABELS and text_label[i-1] in CONJ_LABELS) or (i>1 and text_label[i-1] in NEG_LABELS):
                 return 1
             return 0
     return 1 # In case of no label, default to Entailment
@@ -44,7 +46,7 @@ def label_2_SemEval2024(labels : dict) -> dict:
 
 # Base queries and prompts
 
-TASK_TYPES = {"base" : [], "self_consistency" : ["entail", "contradict"], "explain_answer" : ["explain"], "section_info" : ["Primary_Section_Info", "Secondary_Section_Info"]}
+TASK_TYPES = {"base" : [], "icl_inference_1-shot" : ["icl_1"], "icl_inference_2-shot" : ["icl_1", "icl_2"]}
 
 def extract_info_from_query(query : dict, task_type : str = "base") -> dict:
     relevant_info = {}
@@ -78,24 +80,16 @@ def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompt : str, tas
         }
     return queries_dict
 
-def create_qdid_prompt(queries : dict, prompt : str) -> dict:
+def create_qdid_prompt(queries : dict, prompt : str, args : object = None) -> dict:
     queries_dict = {}
+
+    if args and "icl_source" in vars(args) and args.icl_source != "":
+        icl_source = json.load(open(args.icl_source))
+
+        for q_id in queries:
+            queries[q_id]["icl_1"] = icl_source[q_id]["icl_1"]
+            queries[q_id]["icl_2"] = icl_source[q_id]["icl_2"]
+
     for q_id in queries:
-        queries_dict[q_id] = {"text" : generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt)}
+        queries_dict[q_id] = {"text" : generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt, args.task_type)}
     return queries_dict
-
-def generate_pos_prompts(mistral_prompts : dict):
-    prompt_combinations = { "base_mistral_prompts" : {field : mistral_prompts[field] for field in mistral_prompts}, "combination_prompts" : {}}
-
-    for task_id, task in mistral_prompts["task_descriptions"].items():
-        for ctr_id, ctr in mistral_prompts["ctr_descriptions"].items():
-            for statement_id, statement in mistral_prompts["statement_descriptions"].items():
-                for option_id, option in mistral_prompts["option_descriptions"].items():
-                    combination = mistral_prompts["task_template_prompt_comparison"].replace("$task_description", task).replace("$ctr_description", ctr).replace("$statement_description", statement).replace("$option_description", option)
-
-                    prompt_combinations["combination_prompts"][f'<s>[INST]{task_id}_{ctr_id}_{statement_id}_{option_id}[/INST]'] = combination
-
-    with safe_open_w(f'prompts/MistralPromptsCombination_V2.json') as output_file:
-        output_file.write(json.dumps(prompt_combinations, ensure_ascii=False, indent=4))
-
-    return prompt_combinations

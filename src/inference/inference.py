@@ -2,9 +2,10 @@ import argparse
 import json
 import torch
 import datetime
+import random
 
 # Model Libs
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, set_seed
 from peft import PeftModel
 
 from .output_labels import output_prompt_labels
@@ -49,16 +50,26 @@ def main():
     # Task Type
     parser.add_argument('--task_type', type=str, help='task type to run', default='base_inference', choices=['base_inference', 
     'CoT_inference', 
-    'ICL_inference', 
+    'icl_inference_1-shot', 'icl_inference_2-shot', 
     'CoT-ICL_inference', 
     'self-consistency_inference', 'self-consistency_CoT_inference'])
 
-    # TO:DO ICL Params
+    # ICL Params
+    parser.add_argument('--icl_source', type=str, default=f'')
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
 
+    # Random Seed
+    parser.add_argument('--random_seed', type=int, default= 0)
+
     args = parser.parse_args()
+
+    # Control Randomness for Reproducibility experiments
+    random.seed(args.random_seed)
+    torch.manual_seed(args.random_seed)
+    set_seed(args.random_seed)
+
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model, low_cpu_mem_usage=True,
