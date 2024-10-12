@@ -165,4 +165,6 @@ cython_debug/
 
 models/
 wandb/
+data/SemEval-2024/icl/
+data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/
 # For now, not keeping outputs
