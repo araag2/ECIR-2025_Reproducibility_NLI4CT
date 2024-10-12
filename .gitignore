@@ -166,5 +166,3 @@ cython_debug/
 models/
 wandb/
 # For now, not keeping outputs
-outputs/
-!outputs/paper_baselines/*

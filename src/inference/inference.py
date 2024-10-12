@@ -85,7 +85,13 @@ def main():
     qrels = json.load(open(args.qrels))
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
 
-    output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+    print(f'WARNING: RUNNING 5 SEED ITERATIONS, COMMENT LATER')
+    for i in range(5):
+        args.random_seed = i
+        random.seed(args.random_seed)
+        torch.manual_seed(args.random_seed)
+        set_seed(args.random_seed)
+        output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
 
 if __name__ == '__main__':
     main()
