@@ -1,0 +1,49 @@
+Scores for file: baseline_BioMistral-7B-DARE_zero-shot_short-prompt_Sample_2024-09-30_00-10_test-set.json
+
+Overall Control Score
+
+Control_F1: 0.592
+Control_Precision: 0.664
+Control_Recall: 0.534
+
+Overall Contrast Score
+Contrast_F1: 0.450
+Contrast_Precision: 0.640
+Contrast_Recall: 0.346
+Faithfulness: 0.456
+Consistency: 0.511
+
+Paraphrase Scores
+
+Text Paraphrase
+Para_F1: 0.584
+Para_Precision: 0.649
+Para_Recall: 0.531
+Para_Consistency: 0.537
+
+Numerical Paraphrase
+Numerical_Para_F1: 0.570
+Numerical_Para_Precision: 0.736
+Numerical_Para_Recall: 0.465
+Numerical_Para_Consistency: 0.549
+
+Contradiction Scores
+Text Contradiction
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.473
+Cont_Consistency: 0.477
+
+Numerical Contradiction
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 0.342
+Numerical_Cont_Consistency: 0.370
+
+Text_Append Scores
+Text_Append_F1: 0.558
+Text_Append_Precision: 0.619
+Text_Append_Recall: 0.509
+Text_Append_Consistency: 0.511

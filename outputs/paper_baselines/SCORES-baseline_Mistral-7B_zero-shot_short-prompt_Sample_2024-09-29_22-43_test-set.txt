@@ -1,0 +1,49 @@
+Scores for file: baseline_Mistral-7B_zero-shot_short-prompt_Sample_2024-09-29_22-43_test-set.json
+
+Overall Control Score
+
+Control_F1: 0.727
+Control_Precision: 0.800
+Control_Recall: 0.667
+
+Overall Contrast Score
+Contrast_F1: 0.529
+Contrast_Precision: 0.611
+Contrast_Recall: 0.466
+Faithfulness: 0.685
+Consistency: 0.647
+
+Paraphrase Scores
+
+Text Paraphrase
+Para_F1: 0.702
+Para_Precision: 0.771
+Para_Recall: 0.644
+Para_Consistency: 0.673
+
+Numerical Paraphrase
+Numerical_Para_F1: 0.509
+Numerical_Para_Precision: 0.462
+Numerical_Para_Recall: 0.568
+Numerical_Para_Consistency: 0.638
+
+Contradiction Scores
+Text Contradiction
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.673
+Cont_Consistency: 0.632
+
+Numerical Contradiction
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 0.763
+Numerical_Cont_Consistency: 0.840
+
+Text_Append Scores
+Text_Append_F1: 0.545
+Text_Append_Precision: 0.469
+Text_Append_Recall: 0.651
+Text_Append_Consistency: 0.609

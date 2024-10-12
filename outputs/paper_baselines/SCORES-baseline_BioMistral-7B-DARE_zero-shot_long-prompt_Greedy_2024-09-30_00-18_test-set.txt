@@ -1,0 +1,49 @@
+Scores for file: baseline_BioMistral-7B-DARE_zero-shot_long-prompt_Greedy_2024-09-30_00-18_test-set.json
+
+Overall Control Score
+
+Control_F1: 0.008
+Control_Precision: 0.004
+Control_Recall: 0.333
+
+Overall Contrast Score
+Contrast_F1: 0.017
+Contrast_Precision: 0.009
+Contrast_Recall: 0.560
+Faithfulness: 0.997
+Consistency: 0.617
+
+Paraphrase Scores
+
+Text Paraphrase
+Para_F1: 0.018
+Para_Precision: 0.009
+Para_Recall: 0.778
+Para_Consistency: 0.503
+
+Numerical Paraphrase
+Numerical_Para_F1: 0.000
+Numerical_Para_Precision: 0.000
+Numerical_Para_Recall: 0.000
+Numerical_Para_Consistency: 0.589
+
+Contradiction Scores
+Text Contradiction
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.996
+Cont_Consistency: 1.000
+
+Numerical Contradiction
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 1.000
+Numerical_Cont_Consistency: 1.000
+
+Text_Append Scores
+Text_Append_F1: 0.018
+Text_Append_Precision: 0.009
+Text_Append_Recall: 0.583
+Text_Append_Consistency: 0.501

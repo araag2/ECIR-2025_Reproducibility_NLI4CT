@@ -1,11 +1,11 @@
-MODEL=BioMistral/BioMistral-7B-DARE
-EXP_NAME=baseline_BioMistral-7B_0-shot_short-prompt_Sample
+MODEL=mistralai/Mistral-7B-Instruct-v0.2
+EXP_NAME=baseline_Mistral-7B_0-shot_short-prompt_Sample
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
 PROMPT_NAME=Mistral7B_short-prompt
-OUTPUT_DIR=outputs/paper_baselines/BioMistral-7B/BioMistral-7B_0-shot_short-prompt_Sample/
+OUTPUT_DIR=outputs/paper_baselines/Mistral-7B/Mistral-7B_0-shot_short-prompt_Sample/
 BATCH_SIZE=1
 MAX_NEW_TOKENS=10
 TEMPERATURE=0.5

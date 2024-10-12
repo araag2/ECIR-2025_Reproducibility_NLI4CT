@@ -1,0 +1,49 @@
+Scores for file: baseline_Mistral-7B_zero-shot_long-prompt_Greedy_2024-09-29_22-47_test-set.json
+
+Overall Control Score
+
+Control_F1: 0.717
+Control_Precision: 0.832
+Control_Recall: 0.630
+
+Overall Contrast Score
+Contrast_F1: 0.559
+Contrast_Precision: 0.771
+Contrast_Recall: 0.438
+Faithfulness: 0.573
+Consistency: 0.621
+
+Paraphrase Scores
+
+Text Paraphrase
+Para_F1: 0.718
+Para_Precision: 0.853
+Para_Recall: 0.620
+Para_Consistency: 0.665
+
+Numerical Paraphrase
+Numerical_Para_F1: 0.541
+Numerical_Para_Precision: 0.549
+Numerical_Para_Recall: 0.532
+Numerical_Para_Consistency: 0.621
+
+Contradiction Scores
+Text Contradiction
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.551
+Cont_Consistency: 0.527
+
+Numerical Contradiction
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 0.719
+Numerical_Cont_Consistency: 0.747
+
+Text_Append Scores
+Text_Append_F1: 0.648
+Text_Append_Precision: 0.716
+Text_Append_Recall: 0.591
+Text_Append_Consistency: 0.611

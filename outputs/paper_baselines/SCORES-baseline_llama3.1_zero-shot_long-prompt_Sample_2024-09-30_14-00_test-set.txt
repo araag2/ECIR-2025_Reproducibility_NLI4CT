@@ -1,0 +1,49 @@
+Scores for file: baseline_llama3.1_zero-shot_long-prompt_Sample_2024-09-30_14-00_test-set.json
+
+Overall Control Score
+
+Control_F1: 0.694
+Control_Precision: 0.688
+Control_Recall: 0.699
+
+Overall Contrast Score
+Contrast_F1: 0.539
+Contrast_Precision: 0.595
+Contrast_Recall: 0.492
+Faithfulness: 0.750
+Consistency: 0.661
+
+Paraphrase Scores
+
+Text Paraphrase
+Para_F1: 0.663
+Para_Precision: 0.672
+Para_Recall: 0.655
+Para_Consistency: 0.659
+
+Numerical Paraphrase
+Numerical_Para_F1: 0.494
+Numerical_Para_Precision: 0.429
+Numerical_Para_Recall: 0.582
+Numerical_Para_Consistency: 0.643
+
+Contradiction Scores
+Text Contradiction
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.737
+Cont_Consistency: 0.728
+
+Numerical Contradiction
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 0.833
+Numerical_Cont_Consistency: 0.852
+
+Text_Append Scores
+Text_Append_F1: 0.580
+Text_Append_Precision: 0.537
+Text_Append_Recall: 0.630
+Text_Append_Consistency: 0.611

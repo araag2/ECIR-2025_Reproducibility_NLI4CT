@@ -1,0 +1,87 @@
+# Full Evaluation Scores
+
+File name: baseline_MistralLite-7B_zero-shot_short-prompt_Sample_2024-10-01_18-19_test-set.json
+
+
+---
+
+## Overall Control Score
+
+**Official Metric ->** Control_F1: 0.458
+Control_Precision: 0.396
+Control_Recall: 0.544
+
+## Overall Contrast Score
+
+Contrast_F1: 0.366
+Contrast_Precision: 0.379
+Contrast_Recall: 0.353
+**Official Metric ->** Faithfulness: 0.725
+**Official Metric ->** Consistency: 0.551
+
+---
+
+
+## Paraphrase Scores
+
+
+### Text Paraphrase
+
+Para_F1: 0.428
+Para_Precision: 0.381
+Para_Recall: 0.489
+Para_Consistency: 0.491
+
+
+### Numerical Paraphrase
+
+Numerical_Para_F1: 0.464
+Numerical_Para_Precision: 0.429
+Numerical_Para_Recall: 0.506
+Numerical_Para_Consistency: 0.598
+
+
+## Contradiction Scores
+
+
+### Text Contradiction
+
+Cont_F1: 0.000
+Cont_Precision: 0.000
+Cont_Recall: 0.000
+Cont_Faithfulness: 0.725
+Cont_Consistency: 0.719
+
+
+### Numerical Contradiction
+
+Numerical_Cont_F1: 0.000
+Numerical_Cont_Precision: 0.000
+Numerical_Cont_Recall: 0.000
+Numerical_Cont_Faithfulness: 0.719
+Numerical_Cont_Consistency: 0.623
+
+
+## Text_Append Scores
+
+Text_Append_F1: 0.432
+Text_Append_Precision: 0.371
+Text_Append_Recall: 0.519
+Text_Append_Consistency: 0.513
+
+---
+
+## Full Arg List
+
+model = amazon/MistralLite
+exp_name = baseline_MistralLite-7B_zero-shot_short-prompt_Sample
+used_set = test
+queries = data/SemEval-2024/queries/queries2024_test.json
+qrels = data/SemEval-2024/qrels/qrels2024_test.json
+prompt_file = src/prompts/Baseline_Prompts.json
+prompt_name = MistralLite7B_short
+sample = True
+output_dir = outputs/
+
+---
+
