@@ -159,7 +159,8 @@ def calc_scores(predictions : dict, predictions_name : str, output_dir : str, ar
         print(f'## Leaderboard Scores\n', file=f)
 
         print(f'Metrics (%): F1-Score | Faithfulness | Consistency | Average', file=f)
-        print(f'                {Contrast_F1*100:.1f}            {Faithfulness*100:.1f}              {Consistency*100:.1f}           {(Contrast_F1 + Faithfulness + Consistency) / 3 * 100:.1f}', file=f)
+        print(f'                {Control_F1*100:.1f}        {Faithfulness*100:.1f}          {Consistency*100:.1f}        {(Control_F1 + Faithfulness + Consistency) / 3 * 100:.1f}', file=f)
+
 
 
         print(f'\n---\n', file=f)

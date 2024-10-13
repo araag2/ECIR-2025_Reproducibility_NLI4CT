@@ -67,7 +67,7 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
             batched_answers += decoded_output
         
         for i in range(len(query_keys)):
-            if args.task_type == 'base_inference':
+            if args.task_type in ['base_inference', 'icl_inference_1-shot']:
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 res_labels[query_keys[i]] = textlabel_2_binarylabel(answers[query_keys[i]].split(" "))
 

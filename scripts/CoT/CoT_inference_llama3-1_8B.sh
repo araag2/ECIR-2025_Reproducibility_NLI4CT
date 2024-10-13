@@ -5,8 +5,9 @@ QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/CoT_Prompts.json
 PROMPT_NAME=llama_CoT-prompt
-OUTPUT_DIR=outputs/
+OUTPUT_DIR=outputs/CoT/
 MAX_NEW_TOKENS=1000
+RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
@@ -19,4 +20,5 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --output_dir $OUTPUT_DIR \
     --task_type CoT_inference \
     --max_new_tokens $MAX_NEW_TOKENS \
+    --random_seed $RANDOM_SEED \
     --no_sample

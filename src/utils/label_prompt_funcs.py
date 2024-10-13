@@ -91,5 +91,5 @@ def create_qdid_prompt(queries : dict, prompt : str, args : object = None) -> di
             queries[q_id]["icl_2"] = icl_source[q_id]["icl_2"]
 
     for q_id in queries:
-        queries_dict[q_id] = {"text" : generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt, args.task_type)}
+        queries_dict[q_id] = {"text" : generate_query_from_prompt(extract_info_from_query(queries[q_id], args.task_type), prompt, args.task_type)}
     return queries_dict
