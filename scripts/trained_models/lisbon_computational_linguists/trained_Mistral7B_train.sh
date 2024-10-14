@@ -1,17 +1,18 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/Mistral7B_Run1_Train-on-Base-Train/checkpoint-850
+CHECKPOINT=outputs/models/checkpoint-2125
 EXP_NAME=trained_Mistral-7B_train
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
 PROMPT_NAME=Mistral7B_long-prompt
-OUTPUT_DIR=outputs/
+OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/
 BATCH_SIZE=16
-MAX_NEW_TOKENS=5
+MAX_NEW_TOKENS=25
 TEMPERATURE=1.0
 TOP_K=15
 TOP_P=0.7
+RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
@@ -30,4 +31,5 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --temperature $TEMPERATURE \
     --top_k $TOP_K \
     --top_p $TOP_P \
-    #--no_sample \
+    --random_seed $RANDOM_SEED \
+    --no_sample \

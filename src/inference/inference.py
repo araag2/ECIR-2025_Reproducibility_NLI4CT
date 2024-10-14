@@ -58,8 +58,7 @@ def main():
     # Task Type
     parser.add_argument('--task_type', type=str, help='task type to run', default='base_inference', choices=['base_inference', 
     'CoT_inference', 
-    'icl_inference_1-shot', 'icl_inference_2-shot', 
-    'CoT-ICL_inference', 
+    'icl_inference_1-shot', 'icl_inference_2-shot', 'icl_inference_CoT-ver_1-shot', 'icl_inference_CoT-ver_2-shot'
     'self-consistency_inference', 'self-consistency_CoT_inference'])
 
     # ICL Params

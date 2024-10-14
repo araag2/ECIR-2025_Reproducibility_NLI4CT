@@ -2,9 +2,9 @@ MODEL=mistralai/Mistral-7B-Instruct-v0.2
 TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
 #MERGE
 CHECKPOINT=None
-EXP_NAME=baseline_Mistral-7B_training_long-prompt
-RUN=2
-SAVE_DIR=outputs/models/
+EXP_NAME=baseline_Mistral-7B_training_short-prompt
+RUN=3
+SAVE_DIR=outputs/models/baseline_Mistral-7B_training_short-prompt_Run-3/
 TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_train-set.json
 EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
 TASK_TYPE=base

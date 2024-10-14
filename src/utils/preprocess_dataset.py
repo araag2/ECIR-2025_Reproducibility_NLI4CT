@@ -14,8 +14,8 @@ def preprocess_dataset(args : argparse, prompt : str , used_set : str):
     for q_id in set_examples:
         example = set_examples[q_id]
         set_dict["id"].append(q_id)
-        label = "YES" if example["gold_label"] == 1 else "NO"
-        set_dict["text"].append(f'{example["text"]} {label}')
+        label = "Yes</s>" if example["gold_label"] == 1 else "No</s>"
+        set_dict["text"].append(f'{example["text"]}{label}')
     return set_dict
 
 def preprocess_conjoint_dataset(args : argparse, used_set : str):
@@ -53,7 +53,7 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--prompt_file", default="src/prompts/Baseline_Prompts.json", type=str)
-    parser.add_argument("--prompt_name", default="Mistral7B_long-prompt", type=str)
+    parser.add_argument("--prompt_name", default="Mistral7B_short-prompt", type=str)
 
     parser.add_argument("--used_set", default="train", type=str)
     parser.add_argument("--queries", default="data/SemEval-2024/queries/", type=str)

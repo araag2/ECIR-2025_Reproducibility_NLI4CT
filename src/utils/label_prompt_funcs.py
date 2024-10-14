@@ -45,7 +45,8 @@ def label_2_SemEval2024(labels : dict) -> dict:
 
 # Base queries and prompts
 
-TASK_TYPES = {"base" : [], "icl_inference_1-shot" : ["icl_1"], "icl_inference_2-shot" : ["icl_1", "icl_2"]}
+TASK_TYPES = {"base" : [], "icl_inference_1-shot" : ["icl_1"], "icl_inference_2-shot" : ["icl_1", "icl_2"],
+                            "icl_inference_CoT-ver_1-shot": ["icl_1"], "icl_inference_CoT-ver_2-shot": ["icl_1", "icl_2"]}
 
 def extract_info_from_query(query : dict, task_type : str = "base") -> dict:
     relevant_info = {}

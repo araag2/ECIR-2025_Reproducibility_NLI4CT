@@ -8,23 +8,23 @@ File name: CoT_Mistral-7B_Seed-0.json
 ## Leaderboard Scores
 
 Metrics (%): F1-Score | Faithfulness | Consistency | Average
-                57.4        82.9          62.3        67.5
+                48.2        79.6          60.5        62.8
 
 ---
 
 ## Overall Control Score
 
-**Official Metric ->** Control_F1: 0.574
-Control_Precision: 0.496
-Control_Recall: 0.681
+**Official Metric ->** Control_F1: 0.482
+Control_Precision: 0.392
+Control_Recall: 0.624
 
 ## Overall Contrast Score
 
-Contrast_F1: 0.432
-Contrast_Precision: 0.408
-Contrast_Recall: 0.458
-**Official Metric ->** Faithfulness: 0.829
-**Official Metric ->** Consistency: 0.623
+Contrast_F1: 0.490
+Contrast_Precision: 0.547
+Contrast_Recall: 0.445
+**Official Metric ->** Faithfulness: 0.796
+**Official Metric ->** Consistency: 0.605
 
 ---
 
@@ -34,18 +34,18 @@ Contrast_Recall: 0.458
 
 ### Text Paraphrase
 
-Para_F1: 0.557
-Para_Precision: 0.504
-Para_Recall: 0.622
-Para_Consistency: 0.599
+Para_F1: 0.519
+Para_Precision: 0.456
+Para_Recall: 0.603
+Para_Consistency: 0.578
 
 
 ### Numerical Paraphrase
 
-Numerical_Para_F1: 0.377
-Numerical_Para_Precision: 0.319
-Numerical_Para_Recall: 0.460
-Numerical_Para_Consistency: 0.571
+Numerical_Para_F1: 0.392
+Numerical_Para_Precision: 0.330
+Numerical_Para_Recall: 0.484
+Numerical_Para_Consistency: 0.585
 
 
 ## Contradiction Scores
@@ -56,8 +56,8 @@ Numerical_Para_Consistency: 0.571
 Cont_F1: 0.000
 Cont_Precision: 0.000
 Cont_Recall: 0.000
-Cont_Faithfulness: 0.825
-Cont_Consistency: 0.803
+Cont_Faithfulness: 0.795
+Cont_Consistency: 0.725
 
 
 ### Numerical Contradiction
@@ -65,16 +65,16 @@ Cont_Consistency: 0.803
 Numerical_Cont_F1: 0.000
 Numerical_Cont_Precision: 0.000
 Numerical_Cont_Recall: 0.000
-Numerical_Cont_Faithfulness: 0.851
-Numerical_Cont_Consistency: 0.772
+Numerical_Cont_Faithfulness: 0.807
+Numerical_Cont_Consistency: 0.809
 
 
 ## Text_Append Scores
 
-Text_Append_F1: 0.417
-Text_Append_Precision: 0.323
-Text_Append_Recall: 0.587
-Text_Append_Consistency: 0.548
+Text_Append_F1: 0.598
+Text_Append_Precision: 0.664
+Text_Append_Recall: 0.544
+Text_Append_Consistency: 0.554
 
 ---
 

@@ -3,12 +3,12 @@ EXP_NAME=icl_inference_1-shot_Mistral7B
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
-ICL_SOURCE=data/SemEval-2024/icl/icl_label-only/icl_label-only_EDI.json
+ICL_SOURCE=data/SemEval-2024/icl/icl_label-only/icl_label-only_EDI_Mistral-7B.json
 PROMPT_FILE=src/prompts/ICL_Prompts.json
 PROMPT_NAME=icl-1_EDI-label-only-Mistral7B_prompt
 OUTPUT_DIR=outputs/icl_1-shot/
 BATCH_SIZE=4
-MAX_NEW_TOKENS=10
+MAX_NEW_TOKENS=100
 RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \

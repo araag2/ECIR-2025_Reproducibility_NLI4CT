@@ -67,11 +67,11 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
             batched_answers += decoded_output
         
         for i in range(len(query_keys)):
-            if args.task_type in ['base_inference', 'icl_inference_1-shot']:
+            if args.task_type in ['base_inference', 'icl_inference_1-shot', 'icl_inference_2-shot']:
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 res_labels[query_keys[i]] = textlabel_2_binarylabel(answers[query_keys[i]].split(" "))
 
-            elif args.task_type == 'CoT_inference':
+            elif args.task_type in ['CoT_inference', 'icl_inference_CoT-ver_1-shot', 'icl_inference_CoT-ver_2-shot']:
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 reverse_answer = answers[query_keys[i]].split(" ")[::-1]
 
@@ -98,7 +98,7 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     queries_dict = create_qdid_prompt(queries, prompt, args)
     pred_labels, answers = query_inference(model, tokenizer, queries_dict, args)
 
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    args.timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     exp_name = args.exp_name if "exp_name" in args else ""
 
