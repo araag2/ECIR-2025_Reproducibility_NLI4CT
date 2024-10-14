@@ -5,13 +5,14 @@ QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/self-consistency_prompts.json
 PROMPT_NAME=Mistral7B
-OUTPUT_DIR=outputs/
+OUTPUT_DIR=outputs/self-consistency/Mistral-7B/
 BATCH_SIZE=1
-MAX_NEW_TOKENS=50
-TEMPERATURE=0.7
+MAX_NEW_TOKENS=10
+TEMPERATURE=1.0
 TOP_K=50
-TOP_P=0.99
+TOP_P=1.0
 NUM_RETURN_SEQUENCES=10
+RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
@@ -28,4 +29,5 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --temperature $TEMPERATURE \
     --top_k $TOP_K \
     --top_p $TOP_P \
-    --num_return_sequences $NUM_RETURN_SEQUENCES
+    --num_return_sequences $NUM_RETURN_SEQUENCES \
+    --random_seed $RANDOM_SEED \

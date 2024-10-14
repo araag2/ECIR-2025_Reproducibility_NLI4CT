@@ -75,7 +75,7 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 reverse_answer = answers[query_keys[i]].split(" ")[::-1]
 
-                res_labels[query_keys[i]] = textlabel_2_binarylabel(reverse_answer[:25][::-1] + answers[query_keys[i]].split(" "))
+                res_labels[query_keys[i]] = textlabel_2_binarylabel(reverse_answer)
 
             elif args.task_type == 'self-consistency_inference':
                 answers[query_keys[i]] = [clean_text(answer) for answer in batched_answers[i*args.num_return_sequences:(i+1)*args.num_return_sequences]]

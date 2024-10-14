@@ -10,7 +10,6 @@ CONTRADICTION_LABELS = {"contradiction", "contradicts", "contradicted", "no", "(
 NEG_LABELS = {"not", "no", "isn't"}
 CONJ_LABELS = {"a", "directly", "necessarily"}
 
-#TO:DO Reimplement this function using 10/ 11 / 12 incrementing splits
 def textlabelgroup_2_binarylabel(group_split_texts: list[list[str]]) -> int:
     answers = []
     for text_label in group_split_texts:

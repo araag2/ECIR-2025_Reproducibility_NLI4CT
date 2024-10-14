@@ -10,6 +10,14 @@ from peft import PeftModel
 
 from .output_labels import output_prompt_labels
 
+def set_random_seed(random_seed = 0):
+    random.seed(random_seed)
+    set_seed(random_seed)
+    torch.manual_seed(random_seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(random_seed)
+        torch.cuda.manual_seed_all(random_seed)
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -66,10 +74,7 @@ def main():
     args = parser.parse_args()
 
     # Control Randomness for Reproducibility experiments
-    random.seed(args.random_seed)
-    torch.manual_seed(args.random_seed)
-    set_seed(args.random_seed)
-
+    set_random_seed(args.random_seed)
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model, low_cpu_mem_usage=True,
@@ -80,20 +85,27 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(args.model) if "llama" not in args.model else AutoTokenizer.from_pretrained(args.model, padding_side="left")
     tokenizer.pad_token_id = tokenizer.eos_token_id
 
+    #prompt = [{"role": "system", "content": "You are a helpful Clinical Assistant"}, {"role": "user", "content": "You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:$hypothesis\n\nQuestion: Answer in 1 word (Yes or No). Is the statement entailed by the Evidence?"}]
+    #
+    #prompt_2 = [{"role": "system", "content": "You are a helpful Clinical Assistant"}, {"role": "user", "content": "icl_1"}, {"role": "assistant", "content": "Entailment"}, {"role": "user", "content": "icl_2"}, {"role": "assistant", "content": "Contradiction"}, {"role": "user", "content": "Actual example"}]
+    #
+    #print(tokenizer.decode(tokenizer.apply_chat_template(prompt, return_tensors="pt")[0]))
+    #quit()
+
+
     # Load dataset, queries, qrels and prompts
     queries = json.load(open(args.queries))
     qrels = json.load(open(args.qrels))
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
 
     #print(f'WARNING: RUNNING 5 SEED ITERATIONS, COMMENT LATER')
-    #for i in range(5):
-    #    args.random_seed = i
-    #    random.seed(args.random_seed)
-    #    torch.manual_seed(args.random_seed)
-    #    set_seed(args.random_seed)
-    #    output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+    for i in range(1):
+        args.random_seed = i
+        set_random_seed(args.random_seed)
 
-    output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+        output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+
+    #output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
 
 if __name__ == '__main__':
     main()
