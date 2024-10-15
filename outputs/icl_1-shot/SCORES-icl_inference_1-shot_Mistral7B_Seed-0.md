@@ -20,9 +20,9 @@ Control_Recall: 0.740
 
 ## Overall Contrast Score
 
-Contrast_F1: 0.405
-Contrast_Precision: 0.330
-Contrast_Recall: 0.526
+Contrast_F1: 0.404
+Contrast_Precision: 0.328
+Contrast_Recall: 0.525
 **Official Metric ->** Faithfulness: 0.883
 **Official Metric ->** Consistency: 0.652
 
@@ -57,7 +57,7 @@ Cont_F1: 0.000
 Cont_Precision: 0.000
 Cont_Recall: 0.000
 Cont_Faithfulness: 0.869
-Cont_Consistency: 0.844
+Cont_Consistency: 0.845
 
 
 ### Numerical Contradiction
@@ -71,10 +71,10 @@ Numerical_Cont_Consistency: 0.994
 
 ## Text_Append Scores
 
-Text_Append_F1: 0.388
-Text_Append_Precision: 0.279
-Text_Append_Recall: 0.639
-Text_Append_Consistency: 0.561
+Text_Append_F1: 0.384
+Text_Append_Precision: 0.275
+Text_Append_Recall: 0.636
+Text_Append_Consistency: 0.559
 
 ---
 
@@ -91,7 +91,7 @@ prompt_file = src/prompts/ICL_Prompts.json
 prompt_name = icl-1_EDI-label-only-Mistral7B_prompt
 batch_size = 4
 sample = False
-max_new_tokens = 10
+max_new_tokens = 100
 temperature = 0.5
 top_k = 15
 top_p = 0.7
