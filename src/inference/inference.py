@@ -77,7 +77,7 @@ def main():
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model, low_cpu_mem_usage=True,
-        return_dict=True, torch_dtype=torch.bfloat16,
+        return_dict=True, torch_dtype=torch.bfloat32,
         device_map= {"": 0}, attn_implementation="flash_attention_2"
     )
 

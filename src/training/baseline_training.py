@@ -36,8 +36,11 @@ def parse_args():
     parser.add_argument('--save_dir', type=str, default="models/pre-train-complete-eligibility_plus_base-task-tamplate/", help='path to model save dir')
 
     parser.add_argument("--train_data", default="data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_train-set.json", type=str)
-    parser.add_argument("--eval_data", default="data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json", type=str)
+    parser.add_argument("--eval_data", default="", type=str)
     parser.add_argument("--task_type", default="base", type=str, help="Type of task to train on (explain, base, self_consistency, conjoint)", choices = ["base", "self_consistency",  "section_info"])
+
+    # Data collator parameters
+    parser.add_argument("--LM_Token", default="Answer:", type=str, help="Token to complete from")
 
     #Model Hyperparamenters
     parser.add_argument("--max_length", type=int, default=7000)
@@ -45,6 +48,7 @@ def parse_args():
     parser.add_argument("--pooling", default="mean")
     parser.add_argument("--train_epochs", default=5, type=int)
     parser.add_argument("--lr", type=float, default=2e-5)
+    parser.add_argument("--weight_decay", type=float, default=0.00)
 
     # Lora Hyperparameters
     parser.add_argument("--lora_r", type=int, default=64)
@@ -93,7 +97,7 @@ def create_model_and_tokenizer(args : argparse):
         lora_dropout= args.lora_dropout,
         bias="none",
         task_type="CAUSAL_LM",
-        target_modules=["q_proj","k_proj","v_proj","o_proj","gate_proj"],
+        target_modules=["q_proj","k_proj","v_proj"],
     )
 
     model = get_peft_model(model, peft_config)
@@ -119,12 +123,12 @@ def main():
     model, peft_config, tokenizer = create_model_and_tokenizer(args)
 
     train_dataset = Dataset.from_dict(json.load(open(args.train_data)))
-    eval_dataset = Dataset.from_dict(json.load(open(args.eval_data)))
+    eval_dataset = Dataset.from_dict(json.load(open(args.eval_data))) if args.eval_data != "" else None
 
     training_arguments = TrainingArguments(
         output_dir = args.save_dir,
         overwrite_output_dir=True,
-        evaluation_strategy="epoch",
+        evaluation_strategy="epoch" if eval_dataset else None,
         save_strategy="epoch",
         save_total_limit= 5,
         num_train_epochs = args.train_epochs,
@@ -132,11 +136,12 @@ def main():
         optim = "paged_adamw_8bit",
         logging_steps= 25,
         learning_rate= args.lr,
+        weight_decay= args.weight_decay,
         bf16= False,
         group_by_length= True,
         lr_scheduler_type= "constant",
         #model load
-        load_best_model_at_end= True,
+        load_best_model_at_end= True if eval_dataset else False,
         #Speed and memory optimization parameters
         gradient_accumulation_steps= args.gradient_accumulation_steps,
         gradient_checkpointing= args.gradient_checkpointing,
@@ -145,7 +150,8 @@ def main():
     )
     
     ## Data collator for completing with "Answer: YES" or "Answer: NO"
-    collator = DataCollatorForCompletionOnlyLM("Answer:", tokenizer= tokenizer)
+    print(f'{args.LM_Token=}')
+    collator = DataCollatorForCompletionOnlyLM(args.LM_Token, tokenizer= tokenizer)
 
     ## Setting sft parameters
     trainer = SFTTrainer(

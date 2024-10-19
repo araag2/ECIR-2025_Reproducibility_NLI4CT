@@ -3,7 +3,7 @@ TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
 #MERGE
 CHECKPOINT=None
 EXP_NAME=baseline_Mistral-7B_training_short-prompt_manual-augment
-RUN=0
+RUN=1
 SAVE_DIR=outputs/models/baseline_Mistral-7B_training_short-prompt_manual-augment/
 TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/Preprocessed-Data_train-manual-expand_and_dev-set.json
 EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
@@ -13,10 +13,12 @@ MAX_LENGTH=4000
 BATCH_SIZE=1
 POOLING=mean
 TRAIN_EPOCHS=5
-LR=1e-5
-LORA_R=8
-LORA_DROPOUT=0.0
-LORA_ALPHA=32
+TRAIN_EPOCHS=5
+LR=2e-5
+LORA_R=64
+LORA_DROPOUT=0.1
+LORA_ALPHA=16
+LM_TOKEN=Answer: 
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --model_name $MODEL \
@@ -37,3 +39,4 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --lora_r $LORA_R \
     --lora_dropout $LORA_DROPOUT \
     --lora_alpha $LORA_ALPHA \
+    --LM_Token $LM_TOKEN

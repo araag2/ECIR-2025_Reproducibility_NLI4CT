@@ -1,8 +1,8 @@
-USED_SET=train-manual-plus-synthetic-expand_and_dev
+USED_SET=train-full-synthetic-expand
 QUERIES=data/SemEval-2024/data_augmentation/lisbon_computational_linguists/
 QRELS=data/SemEval-2024/data_augmentation/lisbon_computational_linguists/
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
-PROMPT_NAME=Mistral7B_short-prompt
+PROMPT_NAME=Mistral7B_long-prompt
 OUTPUT_DIR=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/
 
 

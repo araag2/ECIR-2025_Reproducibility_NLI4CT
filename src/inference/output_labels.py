@@ -14,16 +14,6 @@ from datetime import datetime
 from tqdm import tqdm
 from itertools import zip_longest
 
-#def tokenize_generate_five_decode(model : object, tokenizer : object, text : str, max_new_tokens : int = 50, top_k : int = 5, top_p : float = 0, do_sample : bool = True, temperature : float = 1.0) -> str:   
-#    tokenized = tokenizer(text, return_tensors="pt")
-#    tokenized["input_ids"] = tokenized.input_ids.to(device="cuda")
-#    tokenized["attention_mask"] = tokenized.attention_mask.to(device="cuda")
-#
-#    # We could use do_sample=False and disable top_k and top_p to get a deterministic output
-#    outputs = model.generate(**tokenized, max_new_tokens=max_new_tokens, top_k = top_k, top_p = top_p, do_sample=do_sample, temperature = temperature, pad_token_id=tokenizer.eos_token_id, num_return_sequences= 10)
-#
-#    return [re.sub("(</s>)*", "", tokenizer.decode(out[tokenized["input_ids"].shape[1]:]).strip()) for out in outputs]
-
 def tokenize_generate_decode(model : object, tokenizer : object, text_list : list[str], max_new_tokens : int = 50, top_k : int = 5, top_p : float = 0.10, do_sample : bool = True, temperature : float = 0.1, num_return_sequences : int = 1) -> list[str]:
     tokenized = tokenizer(text_list, return_tensors="pt", padding=True).to(device="cuda")
 
@@ -75,7 +65,7 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
                 answers[query_keys[i]] = clean_text(batched_answers[i])
                 reverse_answer = answers[query_keys[i]].split(" ")[::-1]
 
-                res_labels[query_keys[i]] = textlabel_2_binarylabel(reverse_answer)
+                res_labels[query_keys[i]] = textlabel_2_binarylabel_CoT(reverse_answer)
 
             elif args.task_type == 'self-consistency_inference':
                 answers[query_keys[i]] = [clean_text(answer) for answer in batched_answers[i*args.num_return_sequences:(i+1)*args.num_return_sequences]]
@@ -101,6 +91,52 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     args.timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     exp_name = args.exp_name if "exp_name" in args else ""
+
+    # Output results
+    with safe_open_w(f'{args.output_dir}FULL-ANSWERS_{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json') as output_file:
+        preds = label_2_SemEval2024(pred_labels)
+        output_formatting = {key : {'text_answer' : answers[key], 'label' : preds[key]["Prediction"]} for key in answers}
+        output_file.write(json.dumps(output_formatting, ensure_ascii=False, indent=4))
+
+        calc_scores(preds, f'{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json', args.output_dir, args)
+
+def gemini_inference(model : object, queries : dict, gen_config : dict, safety_config : dict, args : object) -> dict:
+    res_labels = {}
+    answers = {}
+
+    query_keys = list(queries.keys())
+    
+    batched_queries = []
+    for i in range(0, len(query_keys), args.batch_size):
+        batched_queries.append(query_keys[i:i+args.batch_size])
+
+    batched_answers = []
+    for batch in tqdm(batched_queries):
+        for q_id in batch:
+            response = model.generate_content(queries[q_id]["text"],
+                                              generation_config=gen_config,
+                                              safety_settings=safety_config
+            )
+            batched_answers.append(response.text)
+    
+    for i in range(len(query_keys)):
+        answers[query_keys[i]] = clean_text(batched_answers[i])
+        res_labels[query_keys[i]] = textlabel_2_binarylabel(answers[query_keys[i]].split(" "))
+
+    return res_labels, answers
+
+
+def output_prompt_labels_gemini(model : object, queries : dict, prompt : str, gen_config : dict, safety_config : dict, args : object):
+    queries_dict, pred_labels, answers = None, None, None
+
+    # Replace prompt with query info
+    queries_dict = create_qdid_prompt(queries, prompt, args)
+    pred_labels, answers = gemini_inference(model, queries_dict, gen_config, safety_config)
+
+    args.timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+    exp_name = args.exp_name if "exp_name" in args else ""
+
 
     # Output results
     with safe_open_w(f'{args.output_dir}FULL-ANSWERS_{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json') as output_file:

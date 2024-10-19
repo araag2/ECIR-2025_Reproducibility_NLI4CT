@@ -1,5 +1,5 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-EXP_NAME=baseline_Mistral-7B_0-shot_short-prompt_Greedy
+EXP_NAME=baseline_Mistral-7B_0-shot_short-prompt_Greedy_32-bit
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json

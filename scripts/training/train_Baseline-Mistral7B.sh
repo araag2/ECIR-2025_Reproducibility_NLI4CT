@@ -14,9 +14,9 @@ BATCH_SIZE=1
 POOLING=mean
 TRAIN_EPOCHS=5
 LR=1e-5
-LORA_R=8
+LORA_R=64
 LORA_DROPOUT=0.0
-LORA_ALPHA=32
+LORA_ALPHA=16
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --model_name $MODEL \

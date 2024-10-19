@@ -7,7 +7,7 @@ import base64
 import vertexai
 
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
-from .output_labels import output_prompt_labels
+from .output_labels import output_prompt_labels_gemini
 
 def main():
     parser = argparse.ArgumentParser()
@@ -23,7 +23,6 @@ def main():
     args = parser.parse_known_args()
 
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'')
-    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'')
     
     parser.add_argument('--prompt_file', type=str, help='path to prompts file', default='')
     parser.add_argument('--prompt_name', type=str, help='name of the prompt to use', default='')
@@ -54,9 +53,7 @@ def main():
 
     # Load dataset, queries, qrels and prompts
     queries = json.load(open(args.queries))
-    qrels = json.load(open(args.qrels))
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
-
 
     generation_config = {
         "max_output_tokens": args.max_new_tokens,
@@ -68,10 +65,6 @@ def main():
     safety_settings = [
         SafetySetting(
             category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-            threshold=SafetySetting.HarmBlockThreshold.OFF
-        ),
-        SafetySetting(
-            category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
             threshold=SafetySetting.HarmBlockThreshold.OFF
         ),
         SafetySetting(
@@ -88,10 +81,19 @@ def main():
     model = GenerativeModel(
         args.model,
     )
-    chat = model.start_chat()
+
+    response = model.generate_content(
+        ["Hello, can u introduce yourself?"],
+        generation_config=generation_config,
+        safety_settings=safety_settings,
+    )
+
+    print(response)
+    print(response.text)
+    quit()
 
     # TO:DO Change how this works for the model at hand
-    output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+    output_prompt_labels_gemini(model, queries, prompt, generation_config, safety_settings, args)
 
 if __name__ == '__main__':
     main()

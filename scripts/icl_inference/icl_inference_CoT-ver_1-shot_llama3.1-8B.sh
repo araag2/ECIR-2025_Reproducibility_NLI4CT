@@ -5,10 +5,10 @@ QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 ICL_SOURCE=data/SemEval-2024/icl/icl_CoT-ver/icl_CoT-ver_EDI_GPT-4_llama3.1-8B.json
 PROMPT_FILE=src/prompts/ICL_Prompts.json
-PROMPT_NAME=icl-1_CoT-ver_llama3.1-8B_prompt
+PROMPT_NAME=icl-1_EDI-CoT-ver_llama3.1-8B_prompt
 OUTPUT_DIR=outputs/icl_CoT-ver_1-shot/
 BATCH_SIZE=1
-MAX_NEW_TOKENS=1000
+MAX_NEW_TOKENS=500
 RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \

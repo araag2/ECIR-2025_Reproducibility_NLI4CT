@@ -1,0 +1,6 @@
+{
+    "FZI_Mistral7B_label-only_prompt" : "<s>[INST] Primary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\nStatement: $hypothesis\nVerify whether the statement is entailed in the Trials with Entailment or Contradiction.[/INST] Verification: ",
+
+
+    "FZI_Mistral7B_CoT-ver_prompt" : "<s>[INST] Primary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\nStatement: $hypothesis\nVerify whether the statement is entailed in the Trials with Entailment or Contradiction.[/INST] Let’s verify it step by step: "
+}

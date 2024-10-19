@@ -1,11 +1,11 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/checkpoint-2125
-EXP_NAME=trained_Mistral-7B_train
+CHECKPOINT=outputs/models/baseline_Mistral-7B_training_short-prompt_manual-augment/checkpoint-586
+EXP_NAME=trained_Mistral-7B_short-prompt_manual-augment
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
-PROMPT_NAME=Mistral7B_long-prompt
+PROMPT_NAME=Mistral7B_short-prompt
 OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/
 BATCH_SIZE=16
 MAX_NEW_TOKENS=25
