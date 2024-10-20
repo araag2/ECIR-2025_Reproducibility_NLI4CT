@@ -1,6 +1,6 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/baseline_Mistral-7B_training_short-prompt_manual-augment/checkpoint-586
-EXP_NAME=trained_Mistral-7B_short-prompt_manual-augment
+CHECKPOINT=outputs/models/baseline_Mistral-7B_training_short-prompt_manual-augment/checkpoint-5505
+EXP_NAME=trained_Mistral-7B_short-prompt_manual-augment_checkpoint-5505
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
@@ -17,7 +17,6 @@ RANDOM_SEED=0
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --model $MODEL\
     --checkpoint $CHECKPOINT \
-    --merge \
     --exp_name $EXP_NAME \
     --used_set $USED_SET \
     --queries $QUERIES \

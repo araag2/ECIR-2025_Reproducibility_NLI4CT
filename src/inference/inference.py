@@ -27,9 +27,6 @@ def main():
 
     # Merge Params
     parser.add_argument('--checkpoint', type=str, help='path to model checkpoint, used if merging', default="")
-    parser.add_argument('--merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
-    parser.add_argument('--no-merge', dest='merge', action='store_true', help='boolean flag to set if model is merging')
-    parser.set_defaults(merge=False)
 
     # Path to queries, qrels and prompt files
     parser.add_argument('--used_set', type=str, help='choose which data to use', default='') # train | dev | test
@@ -75,21 +72,23 @@ def main():
     # Control Randomness for Reproducibility experiments
     set_random_seed(args.random_seed)
 
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model, low_cpu_mem_usage=True,
-        return_dict=True, torch_dtype=torch.bfloat32,
-        device_map= {"": 0}, attn_implementation="flash_attention_2"
-    )
+    model = None
+
+    if args.checkpoint != "":
+        model = AutoModelForCausalLM.from_pretrained(args.model, device_map= {"": 0}, torch_dtype=torch.bfloat16,attn_implementation="flash_attention_2")
+        model = PeftModel.from_pretrained(model, args.checkpoint, device_map= {"": 0}, torch_dtype=torch.bfloat16,attn_implementation="flash_attention_2")
+        model = model.merge_and_unload()
+        print(f'Merged {args.model=} with {args.checkpoint=}')
+
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model, low_cpu_mem_usage=True,
+            return_dict=True, torch_dtype=torch.bfloat16,
+            device_map= {"": 0}, attn_implementation="flash_attention_2"
+        )
 
     tokenizer = AutoTokenizer.from_pretrained(args.model) if "llama" not in args.model else AutoTokenizer.from_pretrained(args.model, padding_side="left")
     tokenizer.pad_token_id = tokenizer.eos_token_id
-
-    #prompt = [{"role": "system", "content": "You are a helpful Clinical Assistant"}, {"role": "user", "content": "You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement:$hypothesis\n\nQuestion: Answer in 1 word (Yes or No). Is the statement entailed by the Evidence?"}]
-    #
-    #prompt_2 = [{"role": "system", "content": "You are a helpful Clinical Assistant"}, {"role": "user", "content": "icl_1"}, {"role": "assistant", "content": "Entailment"}, {"role": "user", "content": "icl_2"}, {"role": "assistant", "content": "Contradiction"}, {"role": "user", "content": "Actual example"}]
-    #
-    #print(tokenizer.decode(tokenizer.apply_chat_template(prompt, return_tensors="pt")[0]))
-    #quit()
 
 
     # Load dataset, queries, qrels and prompts
