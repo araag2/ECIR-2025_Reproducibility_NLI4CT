@@ -1,5 +1,7 @@
 {
     "EDI_Mistral7B_prompt" : "<s> [INST] You are a helpful assistant.\n\nEvidence:\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement: $hypothesis\n\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment? [/INST] Answer: ",
 
-    "EDI_MistralLite_prompt" : "<|prompter|>You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement: $hypothesis\n\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment? \n\n<|assistant|> Answer: "
+    "EDI_MistralLite_prompt" : "<|prompter|>You are a helpful assistant.\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement: $hypothesis\n\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment? \n\n<|assistant|> Answer: ",
+
+    "EDI_llama-prompt": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant specialized in analysing Clinical Trial Reports. Read the following evidence carefully.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nEvidence:\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nStatement: $hypothesis\n\nQuestion: Answer in 1 word. Is the statement a contradiction or an entailment? <|eot_id|><|start_header_id|>assistant<|end_header_id|> Answer: "
 }
