@@ -19,7 +19,7 @@ WEIGHT_DECAY=0.01
 LORA_R=16
 LORA_DROPOUT=0.0
 LORA_ALPHA=32
-LM_TOKEN=Answer: 
+LM_TOKEN=Answer:
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --model_name $MODEL \
