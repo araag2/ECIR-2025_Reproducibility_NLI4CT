@@ -128,7 +128,7 @@ def main():
     training_arguments = TrainingArguments(
         output_dir = args.save_dir,
         overwrite_output_dir=True,
-        evaluation_strategy="epoch" if eval_dataset else None,
+        eval_strategy="epoch" if eval_dataset else None,
         save_strategy="epoch",
         save_total_limit= 5,
         num_train_epochs = args.train_epochs,
