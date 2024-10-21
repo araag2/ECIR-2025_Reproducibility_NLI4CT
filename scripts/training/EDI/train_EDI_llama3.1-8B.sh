@@ -10,7 +10,7 @@ EVAL_DATA=data/SemEval-2024/training_preprocessed_data/EDI/train_EDI_label-only_
 TASK_TYPE=base
 #Hyperparameters Config
 MAX_LENGTH=4000
-BATCH_SIZE=1
+BATCH_SIZE=10
 POOLING=mean
 TRAIN_EPOCHS=10
 GRADIENT_ACCUMULATION_STEPS=32
@@ -19,7 +19,7 @@ WEIGHT_DECAY=0.01
 LORA_R=16
 LORA_DROPOUT=0.0
 LORA_ALPHA=32
-LM_TOKEN=Answer:
+LM_TOKEN=Answer: 
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --model_name $MODEL \
