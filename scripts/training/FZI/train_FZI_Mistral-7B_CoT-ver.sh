@@ -9,7 +9,7 @@ TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/FZI/train_FZI_CoT-ver.js
 TASK_TYPE=base
 #Hyperparameters Config
 MAX_LENGTH=7000
-BATCH_SIZE=1
+BATCH_SIZE=16
 POOLING=mean
 TRAIN_EPOCHS=5
 GRADIENT_ACCUMULATION_STEPS=8

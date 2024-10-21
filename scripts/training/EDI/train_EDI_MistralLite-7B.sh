@@ -1,22 +1,24 @@
-MODEL=mistralai/Mistral-7B-Instruct-v0.2
-TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
+MODEL=amazon/MistralLite
+TOKENIZER=amazon/MistralLite
 #MERGE
 CHECKPOINT=None
-EXP_NAME=baseline_Mistral-7B_training_long-prompt_manual-augment
+EXP_NAME=trained-EDI_MistralLite_EDI_prompt
 RUN=1
-SAVE_DIR=outputs/models/baseline_Mistral-7B_training_long-prompt_manual-augment/
-TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/Preprocessed-Data_train-manual-expand_and_dev-set.json
-EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
+SAVE_DIR=outputs/models/trained-EDI_MistralLite_true-dropout/
+TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/EDI/train_EDI_label-only_train_MistralLite.json
+EVAL_DATA=data/SemEval-2024/training_preprocessed_data/EDI/train_EDI_label_only_dev_MistralLite.json
 TASK_TYPE=base
 #Hyperparameters Config
 MAX_LENGTH=4000
-BATCH_SIZE=1
+BATCH_SIZE=8
 POOLING=mean
 TRAIN_EPOCHS=10
-LR=2e-5
-LORA_R=64
-LORA_DROPOUT=0.1
-LORA_ALPHA=16
+GRADIENT_ACCUMULATION_STEPS=32
+LR=1e-3
+WEIGHT_DECAY=0.01
+LORA_R=16
+LORA_DROPOUT=0.0
+LORA_ALPHA=32
 LM_TOKEN=Answer: 
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
@@ -34,7 +36,9 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.training.baseline_training \
     --batch_size $BATCH_SIZE \
     --pooling $POOLING \
     --train_epochs $TRAIN_EPOCHS \
+    --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \
     --lr $LR \
+    --weight_decay $WEIGHT_DECAY \
     --lora_r $LORA_R \
     --lora_dropout $LORA_DROPOUT \
     --lora_alpha $LORA_ALPHA \

@@ -1,14 +1,14 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/baseline_Mistral-7B_training_short-prompt_Run-3/checkpoint-850
-EXP_NAME=trained_Mistral7B_short-prompt_base-train-set_checkpoint-850
+CHECKPOINT=outputs/models/baseline_Mistral-7B_training_short-prompt_full-synthetic-expand/checkpoint-5505
+EXP_NAME=trained_Mistral7B_short-prompt_base-train-set_checkpoint-5505_Sample
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
 PROMPT_NAME=Mistral7B_short-prompt
-OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/
+OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/full-synthetic-augment/
 BATCH_SIZE=16
-MAX_NEW_TOKENS=25
+MAX_NEW_TOKENS=8
 TEMPERATURE=1.0
 TOP_K=15
 TOP_P=0.7
@@ -31,4 +31,4 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --top_k $TOP_K \
     --top_p $TOP_P \
     --random_seed $RANDOM_SEED \
-    --no_sample \
+    #--no_sample \
