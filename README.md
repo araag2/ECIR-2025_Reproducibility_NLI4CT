@@ -30,19 +30,18 @@ To run any experiment, within the source folder just run:
 bash scripts/<path_to_script> <CUDA_GPU_TO_USE>
 ```
 
-For example, this command will run example_Mistral-7B (0-shot of Mistral-7B-instructv0.2) with the flag CUDA_VISIBLE_DEVICES = 0
+For example, this command will run example_Mistral-7B.sh (0-shot of Mistral-7B-instructv0.2) with the flag CUDA_VISIBLE_DEVICES = 0
 
 ```
 bash scripts/example_Mistral-7B.sh 0
 ```
 
-It's worth to note that the first time each model is ran, their checkpoints will be downloaded from [huggingface]([url](https://huggingface.co/)), and that each script will generate two files:
+It's worth to note that the first time each model is ran, their checkpoints will be downloaded from [huggingface]([url](https://huggingface.co/)), and that scripts within the **scripts/trained/** folder require a valid path to load the trained checkpoints from (automatically generated with scripts in **scripts/training/**). 
 
-.
-FULL-ANSWER_<exp_name>     # A .json file with the full text generated and the Prediction label for each example
-SCORES_<exp_name>          # A .md file containig all evaluated metrics
+Additionaly, each script will output two files to the **outputs/** directory:
 
-
+> FULL-ANSWER_<exp_name>     # A .json file with the full text generated and its Prediction label
+> SCORES_<exp_name>          # A .md file containig all evaluated metrics
 
 ## Repository Structure
 
@@ -59,16 +58,21 @@ SCORES_<exp_name>          # A .md file containig all evaluated metrics
     └── README.md
 
 
-## Models Used and Source
+## Models Used
 
-| Model  | Approach | F1-Score | Faithfullness | Consistency | HuggingFace-Source |
-|--------|----------|----------|---------------|-------------|--------------------|
-|        |          |          |               |             |                    |
+| Model  | Source |
+|--------|--------|
+| Mistral-7B-Instruct-v0.2       |     [huggingface](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2)   |
+| BioMistral-7B                  |     [huggingface](https://huggingface.co/BioMistral/BioMistral-7B)             |
+| MistralLite                    |     [huggingface](https://huggingface.co/amazon/MistralLite)                   |
+| Llama-3.1-8B-Instruct          |     [huggingface](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)     |
+| SOLAR-10.7B-Instruct-v1.0      |     [huggingface](https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0)    |
+| gemini-1.5-flash-002           |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     |
+| gemini-1.5-pro-002             |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     | 
 
 ## Reproducibility experiments
 
-## Additional experiments
-
+For a full breakdown on the obtained results, consult [the Scripts README file](scripts/README.md)
 
 ## Acknowledgments
 
@@ -177,8 +181,6 @@ This research was supported by the Portuguese Recovery and Resilience Plan throu
 }
 ```
 
-
-
 ## Citation
 
 TO:DO
@@ -195,7 +197,6 @@ TO:DO
   publisher = {}
 }
 ```
-
 
 ## Contact
 
