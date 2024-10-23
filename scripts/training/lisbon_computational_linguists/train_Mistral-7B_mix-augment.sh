@@ -4,12 +4,12 @@ TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
 CHECKPOINT=None
 EXP_NAME=baseline_Mistral-7B_training_long-prompt_mix-expand
 RUN=1
-SAVE_DIR=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand/
-TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/Preprocessed-Data_train-manual-expand_and_dev-set.json
-EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_test-set.json
+SAVE_DIR=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand_2/
+TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/Preprocessed-Data_train-manual-plus-synthetic-expand_and_dev-set.json
+EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
 TASK_TYPE=base
 #Hyperparameters Config
-MAX_LENGTH=5000
+MAX_LENGTH=6000
 BATCH_SIZE=1
 POOLING=mean
 TRAIN_EPOCHS=10

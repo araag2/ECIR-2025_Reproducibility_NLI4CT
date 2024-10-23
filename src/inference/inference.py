@@ -97,7 +97,7 @@ def main():
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
 
     #print(f'WARNING: RUNNING 5 SEED ITERATIONS, COMMENT LATER')
-    for i in range(1):
+    for i in range(1, 6):
         args.random_seed = i
         set_random_seed(args.random_seed)
 

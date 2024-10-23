@@ -7,8 +7,8 @@ QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/FZI_Prompts.json
 PROMPT_NAME=FZI_Mistral7B_CoT-ver_prompt
 OUTPUT_DIR=outputs/trained_models/FZI/trained_FZI_Mistral-7B_CoT-ver/
-BATCH_SIZE=1
-MAX_NEW_TOKENS=1000
+BATCH_SIZE=64
+MAX_NEW_TOKENS=500
 RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \

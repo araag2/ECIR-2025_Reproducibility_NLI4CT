@@ -1,13 +1,15 @@
 import argparse
 import json
-import torch
-import datetime
 import random
-import base64
 import vertexai
+import base64
 
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 from .output_labels import output_prompt_labels_gemini
+
+def set_random_seed(random_seed = 0):
+    random.seed(random_seed)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -27,6 +29,7 @@ def main():
     parser.add_argument('--prompt_file', type=str, help='path to prompts file', default='')
     parser.add_argument('--prompt_name', type=str, help='name of the prompt to use', default='')
 
+    parser.add_argument('--batch_size', type=int, help='batch_size of generated examples', default=8)
     parser.add_argument('--max_new_tokens', type=int, help='sets the number of new tokens to generate when decoding', default=10)
     parser.add_argument('--temperature', type=float, help='generation param that sets the model stability', default=0.5)
     parser.add_argument('--top_k', type=int, default=15)
@@ -60,6 +63,7 @@ def main():
         "temperature": args.temperature,
         "top_p" : args.top_p,
         "top_k" : args.top_k,
+        "seed" : args.random_seed,
     }
 
     safety_settings = [
@@ -77,20 +81,14 @@ def main():
         ),
     ]
 
+    print(f'{args.project=} {args.location=}')
+
     vertexai.init(project=args.project, location=args.location)
     model = GenerativeModel(
         args.model,
     )
 
-    response = model.generate_content(
-        ["Hello, can u introduce yourself?"],
-        generation_config=generation_config,
-        safety_settings=safety_settings,
-    )
-
-    print(response)
-    print(response.text)
-    quit()
+    set_random_seed(args.random_seed)
 
     # TO:DO Change how this works for the model at hand
     output_prompt_labels_gemini(model, queries, prompt, generation_config, safety_settings, args)

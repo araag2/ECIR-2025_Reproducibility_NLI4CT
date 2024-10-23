@@ -3,10 +3,11 @@ import torch
 import typing
 import re
 import string
+import time
 
 # Local Files
 from ..utils.file_utils import safe_open_w
-from ..utils.label_prompt_funcs import textlabel_2_binarylabel, textlabelgroup_2_binarylabel, label_2_SemEval2024, create_qdid_prompt
+from ..utils.label_prompt_funcs import textlabel_2_binarylabel, textlabelgroup_2_binarylabel, label_2_SemEval2024, create_qdid_prompt, textlabel_2_binarylabel_CoT
 from ..evaluation.SemEval2024_sourceEval import calc_scores
 
 # Util libs
@@ -118,6 +119,8 @@ def gemini_inference(model : object, queries : dict, gen_config : dict, safety_c
                                               safety_settings=safety_config
             )
             batched_answers.append(response.text)
+
+            time.sleep(5)
     
     for i in range(len(query_keys)):
         answers[query_keys[i]] = clean_text(batched_answers[i])
@@ -131,7 +134,7 @@ def output_prompt_labels_gemini(model : object, queries : dict, prompt : str, ge
 
     # Replace prompt with query info
     queries_dict = create_qdid_prompt(queries, prompt, args)
-    pred_labels, answers = gemini_inference(model, queries_dict, gen_config, safety_config)
+    pred_labels, answers = gemini_inference(model, queries_dict, gen_config, safety_config, args)
 
     args.timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
@@ -144,7 +147,6 @@ def output_prompt_labels_gemini(model : object, queries : dict, prompt : str, ge
         output_formatting = {key : {'text_answer' : answers[key], 'label' : preds[key]["Prediction"]} for key in answers}
         output_file.write(json.dumps(output_formatting, ensure_ascii=False, indent=4))
 
-        print(f'Calc Scores')
         calc_scores(preds, f'{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json', args.output_dir, args)
 
 #def example_inference(model : object, tokenizer : object, queries : dict) -> dict:
