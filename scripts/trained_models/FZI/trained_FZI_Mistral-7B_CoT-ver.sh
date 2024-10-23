@@ -1,14 +1,14 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/trained-FZI_Mistral-7B_CoT-ver/checkpoint-393
+CHECKPOINT=outputs/models/trained-FZI_Mistral-7B_CoT-ver/checkpoint-590
 EXP_NAME=trained_FZI_Mistral-7B_CoT-ver_Greedy
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/FZI_Prompts.json
 PROMPT_NAME=FZI_Mistral7B_CoT-ver_prompt
-OUTPUT_DIR=outputs/trained_models/FZI/trained_FZI_Mistral-7B_CoT-ver_checkpoint-393/
+OUTPUT_DIR=outputs/trained_models/FZI/trained_FZI_Mistral-7B_CoT-ver_checkpoint-590/
 BATCH_SIZE=32
-MAX_NEW_TOKENS=150
+MAX_NEW_TOKENS=250
 RANDOM_SEED=0
 
 CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
