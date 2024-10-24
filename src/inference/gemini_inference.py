@@ -89,8 +89,6 @@ def main():
     )
 
     set_random_seed(args.random_seed)
-
-    # TO:DO Change how this works for the model at hand
     output_prompt_labels_gemini(model, queries, prompt, generation_config, safety_settings, args)
 
 if __name__ == '__main__':

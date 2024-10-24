@@ -25,4 +25,4 @@ CUDA_VISIBLE_DEVICES=$1 python -m src.inference.inference \
     --batch_size $BATCH_SIZE \
     --max_new_tokens $MAX_NEW_TOKENS \
     --random_seed $RANDOM_SEED \
-    #--no_sample 
+    --no_sample 

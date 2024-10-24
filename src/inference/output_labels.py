@@ -120,7 +120,7 @@ def gemini_inference(model : object, queries : dict, gen_config : dict, safety_c
             )
             batched_answers.append(response.text)
 
-            time.sleep(10)
+            #time.sleep(10)
     
     for i in range(len(query_keys)):
         answers[query_keys[i]] = clean_text(batched_answers[i])
@@ -140,7 +140,6 @@ def output_prompt_labels_gemini(model : object, queries : dict, prompt : str, ge
 
     exp_name = args.exp_name if "exp_name" in args else ""
 
-
     # Output results
     with safe_open_w(f'{args.output_dir}FULL-ANSWERS_{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json') as output_file:
         preds = label_2_SemEval2024(pred_labels)
@@ -148,17 +147,3 @@ def output_prompt_labels_gemini(model : object, queries : dict, prompt : str, ge
         output_file.write(json.dumps(output_formatting, ensure_ascii=False, indent=4))
 
         calc_scores(preds, f'{exp_name if exp_name != "" else ""}_Seed-{args.random_seed}.json', args.output_dir, args)
-
-#def example_inference(model : object, tokenizer : object, queries : dict) -> dict:
-#    res_labels = {}
-#    answers = {}
-#
-#    with torch.inference_mode():
-#        for q_id in tqdm(queries):
-#            decoded_output = tokenize_generate_decode(model, tokenizer, queries[q_id]["text"], 50, 50, 0.95, True)
-#
-#            decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
-#
-#            answers[q_id] = decoded_output_sub
-#            res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" "))
-#    return res_labels, answers

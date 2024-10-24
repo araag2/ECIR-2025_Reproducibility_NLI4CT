@@ -1,12 +1,12 @@
 MODEL=amazon/MistralLite
-CHECKPOINT=outputs/models/trained-EDI_MistralLite_true-dropout/checkpoint-29
-EXP_NAME=trained_EDI_MistralLite7B_checkpoint-29_Sample
+CHECKPOINT=outputs/models/trained-EDI_MistralLite_true-dropout/checkpoint-66
+EXP_NAME=trained_EDI_MistralLite7B_checkpoint-66_Sample
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/EDI_Prompts.json
 PROMPT_NAME=EDI_MistralLite_prompt
-OUTPUT_DIR=outputs/trained_models/EDI/MistralLite7B_checkpoint-70/
+OUTPUT_DIR=outputs/trained_models/EDI/MistralLite7B_checkpoint-66/
 BATCH_SIZE=8
 MAX_NEW_TOKENS=10
 RANDOM_SEED=0
