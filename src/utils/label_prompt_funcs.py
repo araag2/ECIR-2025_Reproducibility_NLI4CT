@@ -53,6 +53,23 @@ def textlabel_2_binarylabel_CoT(text_label: list[str]) -> int:
             return 0
     return 1 # In case of no label, default to Entailment
 
+def textlabelgroup_2_binarylabel_CoT(group_split_texts: list[list[str]]) -> int:
+    answers = []
+    for text_label in group_split_texts:
+        text_label = [text.lower() for text in text_label]
+        for i in range(len(text_label)):
+            if text_label[i] in ENTAILMENT_LABELS:
+                if (i < len(text_label)-3 and text_label[i+2] in NEG_LABELS and text_label[i+1] in CONJ_LABELS) or (i < len(text_label) - 2 and text_label[i+1] in NEG_LABELS):
+                    answers.append(0)
+                answers.append(1)
+                break
+            elif text_label[i] in CONTRADICTION_LABELS:
+                if (i < len(text_label)-3 and text_label[i+2] in NEG_LABELS and text_label[i+1] in CONJ_LABELS) or (i < len(text_label) - 2 and text_label[i+1] in NEG_LABELS):
+                    answers.append(1)
+                answers.append(0)
+                break
+    return answers.count(1) >= answers.count(0)
+
 def label_2_SemEval2024(labels : dict) -> dict:
     return {q_id : {"Prediction" : "Entailment" if labels[q_id] == 1 else "Contradiction"} for q_id in labels}
 

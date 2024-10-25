@@ -2,9 +2,9 @@ MODEL=mistralai/Mistral-7B-Instruct-v0.2
 TOKENIZER=mistralai/Mistral-7B-Instruct-v0.2
 #MERGE
 CHECKPOINT=None
-EXP_NAME=baseline_Mistral-7B_training_long-prompt_mix-expand_3
+EXP_NAME=baseline_Mistral-7B_training_long-prompt_mix-expand
 RUN=1
-SAVE_DIR=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand_3/
+SAVE_DIR=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand/
 TRAIN_DATA=data/SemEval-2024/training_preprocessed_data/lisbon_computational_linguists/Preprocessed-Data_train-manual-plus-synthetic-expand_and_dev-set.json
 EVAL_DATA=data/SemEval-2024/training_preprocessed_data/Preprocessed-Data_dev-set.json
 TASK_TYPE=base

@@ -13,7 +13,6 @@ from ..evaluation.SemEval2024_sourceEval import calc_scores
 # Util libs
 from datetime import datetime
 from tqdm import tqdm
-from itertools import zip_longest
 
 def tokenize_generate_decode(model : object, tokenizer : object, text_list : list[str], max_new_tokens : int = 50, top_k : int = 5, top_p : float = 0.10, do_sample : bool = True, temperature : float = 0.1, num_return_sequences : int = 1) -> list[str]:
     tokenized = tokenizer(text_list, return_tensors="pt", padding=True).to(device="cuda")
@@ -74,9 +73,8 @@ def query_inference(model : object, tokenizer : object, queries : dict, args : o
 
             elif args.task_type == 'self-consistency_CoT_inference':
                 answers[query_keys[i]] = [clean_text(answer) for answer in batched_answers[i*args.num_return_sequences:(i+1)*args.num_return_sequences]]
-                reverse_answers = [answer.split(" ")[::-1] for answer in answers[query_keys[i]]]
 
-                res_labels[query_keys[i]] = textlabelgroup_2_binarylabel([reverse_answers[j][:25][::-1] + answers[query_keys[i]][j].split(" ") for j in range(len(reverse_answers))])
+                res_labels[query_keys[i]] = textlabel_2_binarylabel_CoT([answer.split(" ")[::-1] for answer in answers[query_keys[i]]])
 
     return res_labels, answers
 

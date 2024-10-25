@@ -1,0 +1,9 @@
+datasets==2.16.1
+google_cloud_aiplatform==1.70.0
+peft==0.7.1
+scikit_learn==1.2.2
+torch==2.1.2
+tqdm==4.65.0
+transformers==4.24.0
+transformers==4.45.1
+trl==0.9.6.dev0

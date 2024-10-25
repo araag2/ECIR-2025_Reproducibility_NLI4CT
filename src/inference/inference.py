@@ -96,7 +96,7 @@ def main():
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
 
 
-    for i in range(1, 6):
+    for i in range(1):
         args.random_seed = i
         set_random_seed(args.random_seed)
 
