@@ -1,12 +1,12 @@
 MODEL=mistralai/Mistral-7B-Instruct-v0.2
-CHECKPOINT=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand/checkpoint-232
-EXP_NAME=trained_Mistral7B_short-prompt_mix-expand_checkpoint-232
+CHECKPOINT=outputs/models/baseline_Mistral-7B_training_long-prompt_mix-expand/checkpoint-3255
+EXP_NAME=trained_Mistral7B_long-prompt_mix-expand_checkpoint-3255
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 QRELS=data/SemEval-2024/qrels/qrels2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
-PROMPT_NAME=Mistral7B_short-prompt
-OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/mix-expand_checkpoint-232/
+PROMPT_NAME=Mistral7B_long-prompt
+OUTPUT_DIR=outputs/trained_models/lisbon_computational_linguists/mix-expand_checkpoint-3255/
 BATCH_SIZE=16
 MAX_NEW_TOKENS=8
 TEMPERATURE=1.0

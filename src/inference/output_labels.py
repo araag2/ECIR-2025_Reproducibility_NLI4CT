@@ -118,7 +118,7 @@ def gemini_inference(model : object, queries : dict, gen_config : dict, safety_c
             )
             batched_answers.append(response.text)
 
-            #time.sleep(10)
+            time.sleep(12)
     
     for i in range(len(query_keys)):
         answers[query_keys[i]] = clean_text(batched_answers[i])
