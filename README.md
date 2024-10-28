@@ -62,6 +62,7 @@ Additionaly, each script will output two files to the **outputs/** directory:
 
 | Model  | Source |
 |--------|--------|
+| Mistral-7B-Instruct-v0.1       |     [huggingface](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1)   |
 | Mistral-7B-Instruct-v0.2       |     [huggingface](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2)   |
 | BioMistral-7B                  |     [huggingface](https://huggingface.co/BioMistral/BioMistral-7B)             |
 | MistralLite                    |     [huggingface](https://huggingface.co/amazon/MistralLite)                   |
