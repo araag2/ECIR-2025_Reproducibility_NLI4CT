@@ -67,7 +67,7 @@ After training models with [Training Scripts](training/), you can obtain these r
 | Solar-10.7B [4] / -          | Reduction   |           | 77.9 / --------         |           | 92.4 / --------           |           | 80.9 / --------            |           | 83.7 / --------            |
 
 References:  
-- [1] [Gema et al., 2024 - Edinburgh]([url](https://aclanthology.org/2024.semeval-1.265/))
+- [1] [Gema et al., 2024 - Edinburgh](https://aclanthology.org/2024.semeval-1.265/)
 - [2] [Guimaraes, 2024 - Lisbon](https://aclanthology.org/2024.semeval-1.185/)  
 - [3] [Liu & Thoma, 2024 - FZI ](https://aclanthology.org/2024.semeval-1.184/) 
 - [4] [Lee et al., 2024 - NYCU](https://aclanthology.org/2024.semeval-1.209/)  
