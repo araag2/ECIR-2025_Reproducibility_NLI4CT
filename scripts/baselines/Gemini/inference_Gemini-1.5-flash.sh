@@ -1,11 +1,11 @@
-MODEL=gemini-1.5-flash-002
+MODEL=gemini-1.5-flash-001
 EXP_NAME=baseline_Gemini-flash_0-shot_short-prompt_Greedy
 PROJECT=stone-passage-376622
-LOCATION=europe-southwest1
+LOCATION=europe-central2
 USED_SET=test
 QUERIES=data/SemEval-2024/queries/queries2024_$USED_SET.json
 PROMPT_FILE=src/prompts/Baseline_Prompts.json
-PROMPT_NAME=Mistral7B_long-prompt
+PROMPT_NAME=Mistral7B_short-prompt
 OUTPUT_DIR=outputs/paper_baselines/Gemini/Gemini-flash_0-shot_short-prompt_Greedy/
 BATCH_SIZE=1
 MAX_NEW_TOKENS=10

@@ -150,8 +150,6 @@ def main():
     )
     
     ## Data collator for completing with "Answer: YES" or "Answer: NO"
-    #print(f'{args.LM_Token=} {tokenizer.tokenize(args.LM_Token)=} {tokenizer.tokenize("Answer:")=} {tokenizer.tokenize("Answer: ")=}')
-    #print(f'{train_dataset[0]["text"][-100:]=} {tokenizer.tokenize(train_dataset[0]["text"][-100:])=}')
     collator = DataCollatorForCompletionOnlyLM(args.LM_Token, tokenizer= tokenizer)
 
     ## Setting sft parameters

@@ -64,7 +64,7 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
 
     # Random Seed
-    parser.add_argument('--random_seed', type=int, default= 0)
+    parser.add_argument('--random_seed', type=int, default=0)
 
     args = parser.parse_args()
 
@@ -95,14 +95,7 @@ def main():
     qrels = json.load(open(args.qrels))
     prompt = json.load(open(args.prompt_file))[args.prompt_name]
 
-
-    for i in range(1):
-        args.random_seed = i
-        set_random_seed(args.random_seed)
-
-        output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
-
-    #output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
+    output_prompt_labels(model, tokenizer, queries, prompt, args, args.used_set)
 
 if __name__ == '__main__':
     main()
