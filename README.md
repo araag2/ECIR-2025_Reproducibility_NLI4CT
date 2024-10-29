@@ -18,10 +18,15 @@ To install our work and all its dependencies make sure you have an anaconda dist
 
   - Create and activate a new conda environment using the following commands:
   ```
-  conda env update -f environment.yaml
-  conda activate trec2024
+  conda env create -f environment.yml
+  conda activate ECIR_2025
   ```
 
+  - Alternatively, you can use pip to install requirements:
+  ```
+  pip install -r requirements.txt
+  ```
+    
 ## Running Experiments
 
 To run any experiment, within the source folder just run:
@@ -54,6 +59,7 @@ Additionaly, each script will output two files to the **outputs/** directory:
     ├── src/                    # All source code and the prompts used
     ├── .gitignore              # Close to default gitignore for python projects
     ├── environment.yml         # The libraries (and versions) necessary to run our code (import with conda)
+    ├── requirements.txt        # The libraries (and versions) necessary to run our code (import with pip)
     ├── LICENSE
     └── README.md
 
@@ -68,8 +74,8 @@ Additionaly, each script will output two files to the **outputs/** directory:
 | MistralLite                    |     [huggingface](https://huggingface.co/amazon/MistralLite)                   |
 | Llama-3.1-8B-Instruct          |     [huggingface](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)     |
 | SOLAR-10.7B-Instruct-v1.0      |     [huggingface](https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0)    |
-| gemini-1.5-flash-002           |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     |
-| gemini-1.5-pro-002             |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     | 
+| gemini-1.5-flash-001           |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     |
+| gemini-1.5-pro-001             |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     | 
 
 ## Reproducibility experiments
 
