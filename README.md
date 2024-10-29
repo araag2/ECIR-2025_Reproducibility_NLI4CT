@@ -74,7 +74,7 @@ Additionaly, each script will output two files to the **outputs/** directory:
 | MistralLite                    |     [huggingface](https://huggingface.co/amazon/MistralLite)                   |
 | Llama-3.1-8B-Instruct          |     [huggingface](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)     |
 | SOLAR-10.7B-Instruct-v1.0      |     [huggingface](https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0)    |
-| gemini-1.5-flash-002           |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     |
+| gemini-1.5-flash-001           |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     |
 | gemini-1.5-pro-001             |     [VertexAI](https://console.cloud.google.com/vertex-ai/studio/freeform)     | 
 
 ## Reproducibility experiments
