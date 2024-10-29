@@ -112,13 +112,18 @@ def gemini_inference(model : object, queries : dict, gen_config : dict, safety_c
     batched_answers = []
     for batch in tqdm(batched_queries):
         for q_id in batch:
-            response = model.generate_content(queries[q_id]["text"],
+            try:
+                response = model.generate_content(queries[q_id]["text"],
                                               generation_config=gen_config,
                                               safety_settings=safety_config
-            )
-            batched_answers.append(response.text)
+                )
+                batched_answers.append(response.text)
 
-            time.sleep(1)
+            except Exception as e:
+                print(e)
+                batched_answers.append("")
+
+            #time.sleep(0.05)
     
     for i in range(len(query_keys)):
         answers[query_keys[i]] = clean_text(batched_answers[i])

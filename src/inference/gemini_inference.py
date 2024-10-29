@@ -79,6 +79,10 @@ def main():
             category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
             threshold=SafetySetting.HarmBlockThreshold.OFF
         ),
+        SafetySetting(
+            category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold=SafetySetting.HarmBlockThreshold.OFF
+        ),
     ]
 
     print(f'{args.project=} {args.location=}')
