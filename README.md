@@ -1,4 +1,4 @@
-# ECIR-2025 - A Reproducibility Study on Consistent Reasoning Methods for Clinical Trial Pairs
+# ECIR-2025 - A Reproducibility Study on Consistent LLM Reasoning for Natural Language Inference over Clinical Trials
 
 ## Summary
 
