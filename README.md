@@ -79,6 +79,10 @@ Additionaly, each script will output two files to the **outputs/** directory:
 
 For a full breakdown on the obtained results, consult [the Scripts README file](scripts/README.md)
 
+## Acknowledgments
+
+TO:DO
+
 ### SemEval-2024 Works Cited and Code Used in this Repository
 
 #### [Edinburgh Clinical NLP at SemEval-2024 Task 2: Fine-tune your model unless you have access to GPT-4](https://aclanthology.org/2024.semeval-1.265/) | [Github Code](https://github.com/EdinburghClinicalNLP/semeval_nli4ct)
@@ -182,6 +186,23 @@ For a full breakdown on the obtained results, consult [the Scripts README file](
 }
 ```
 
+## Citation
+
+TO:DO
+
+```
+@inproceedings{,
+  author =    {},
+  title =     {},
+  booktitle = {},
+  series =    {},
+  pages =     {}
+  year =      {},
+  doi =       {},
+  publisher = {}
+}
+```
+
 ## Contact
 
-Should you have any questions, please contact <Anonymous_Author>
+Should you have any questions, please contact `Artur Guimarães` at `artur.guimas@gmail.com`
