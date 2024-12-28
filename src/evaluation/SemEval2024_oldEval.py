@@ -10,6 +10,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 
 warnings.simplefilter('ignore')
 
+
 def extract_control_set(predictions, gold):
     control_predicitons = {}
     for key in gold.keys():
@@ -66,12 +67,12 @@ def faithfulness(predictions, gold):
     return Faithfulness
 
 
-def consistency(predictions_preserving, predictions, gold):
-    uuid_list = list(predictions_preserving.keys())
+def consistency(predictions, gold):
+    uuid_list = list(predictions.keys())
     N = len(uuid_list)
     results = []
     for key in uuid_list:
-        if predictions_preserving[key]["Prediction"] == predictions[gold[key]["Causal_type"][1]]["Prediction"]:
+        if predictions[key]["Prediction"] == gold[key]["Label"]:
             results.append(1)
         else:
             results.append(0)
@@ -110,7 +111,7 @@ def safe_open_w(path: str):
     return open(path, 'w', encoding='utf8')
 
 
-def calc_scores(predictions : dict, predictions_name : str, output_dir : str, args : object = None):
+def calc_scores_old(predictions : dict, predictions_name : str, output_dir : str, args : object = None):
     gold = json.load(open('data/SemEval-2024/corpus/SemEval2024_gold-test.json'))
 
     # Control Test Set F1, Recall, Precision PUBLIC
@@ -121,7 +122,7 @@ def calc_scores(predictions : dict, predictions_name : str, output_dir : str, ar
     contrast_predictions = extract_contrast_set(predictions, gold)
     predictions_preserving, predictions_altering = extract_by_causal_type(contrast_predictions, gold)
     Faithfulness = faithfulness(predictions_altering, gold)
-    Consistency = consistency(predictions_preserving, predictions, gold)
+    Consistency = consistency(predictions_preserving, gold)
 
 
     # Intervention-wise Consistency & Faithfullness HIDDEN
@@ -132,13 +133,13 @@ def calc_scores(predictions : dict, predictions_name : str, output_dir : str, ar
     numerical_para_preserving = extract_by_causal_type(numerical_para_predictions, gold)[0]
     numerical_cont_preserving, numerical_cont_altering = extract_by_causal_type(numerical_cont_predictions, gold)
     definitions_preserving = extract_by_causal_type(definitions_predictions, gold)[0]
-    para_Consistency = consistency(para_preserving, predictions, gold)
+    para_Consistency = consistency(para_preserving, gold)
     cont_Faithfulness = faithfulness(cont_altering, gold)
-    cont_Consistency = consistency(cont_preserving, predictions, gold)
-    numerical_para_Consistency = consistency(numerical_para_preserving, predictions, gold)
+    cont_Consistency = consistency(cont_preserving, gold)
+    numerical_para_Consistency = consistency(numerical_para_preserving, gold)
     numerical_cont_Faithfulness = faithfulness(numerical_cont_altering, gold)
-    numerical_cont_Consistency = consistency(numerical_cont_preserving, predictions, gold)
-    definitions_Consistency = consistency(definitions_preserving, predictions, gold)
+    numerical_cont_Consistency = consistency(numerical_cont_preserving, gold)
+    definitions_Consistency = consistency(definitions_preserving, gold)
 
 
     # Intervention-wise F1, Recall, Precision HIDDEN
@@ -231,7 +232,7 @@ def main():
     args = parser.parse_args()
 
     predictions = json.load(open(args.input_res))
-    calc_scores(predictions, args.input_res.split('/')[-1], args.output_dir)
+    calc_scores_old(predictions, args.input_res.split('/')[-1], args.output_dir)
 
 
 if '__main__' == __name__:
