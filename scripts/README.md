@@ -20,8 +20,10 @@
 | [llama3.1-8B-instruct](baselines/llama3.1-8B/inference_llama3.1-8B_0-shot_short-prompt_Sample.sh) | short  | Sampling  |   61.7   |     86.2     |    69.6     |  72.5   |
 | [llama3.1-8B-instruct](baselines/llama3.1-8B/inference_llama3.1-8B_0-shot_long-prompt_Greedy.sh)  |  long  |  Greedy   |   67.5   |     80.3     |    69.2     |  72.3   |
 | [llama3.1-8B-instruct](baselines/llama3.1-8B/inference_llama3.1-8B_0-shot_long-prompt_Sample.sh)  |  long  | Sampling  |   67.4   |     79.6     |    68.7     |  71.9   |
-| [Gemini-1.5-flash-002](baselines/Gemini/inference_Gemini-1.5-flash.sh)                            |  long  |  Greedy   |    -     |      -       |      -      |    -    |
-| [Gemini-1.5-pro-002](baselines/Gemini/inference_Gemini-1.5-pro.sh)                                |  long  |  Greedy   |    -     |      -       |      -      |    -    ||
+| [Gemini-1.5-flash-001](baselines/Gemini/inference_Gemini-1.5-flash.sh)                            |  short |  Greedy   |   75.5   |     86.3     |    75.2     |  79.0   |
+| [Gemini-1.5-flash-001](baselines/Gemini/inference_Gemini-1.5-flash.sh)                            |  long  |  Greedy   |   71.6   |     84.7     |    71.8     |  76.0   |
+| [Gemini-1.5-flash-001](baselines/Gemini/inference_Gemini-1.5-flash.sh)                            |  short |  Greedy   |   **76.6**   |    ** 92.6**       |      **77.7**      |    **82.3**    |
+| [Gemini-1.5-pro-001](baselines/Gemini/inference_Gemini-1.5-pro.sh)                                |  long  |  Greedy   |    73.6    |     92.1       |     74.1     |    79.9   |
 
 ### Reproduced Methods without Fine-Tuning
 
@@ -42,7 +44,7 @@ We can find the scripts these models by category, 0-shot within the [Baselines](
 |                                                        |         | CoT+1-shot   |         | 63.5 / <span style="background-color: SpringGreen">69.4</span> |         | 53.1 / <span style="background-color: SpringGreen">84.7</span> |         | 53.6 / <span style="background-color: SpringGreen">71.3</span> |         | 56.7 / <span style="background-color: SpringGreen">75.1</span> |
 |                                                        |         | CoT+2-shot   |         | 59.2 / <span style="background-color: SpringGreen">68.5</span> |         | 61.2 / <span style="background-color: SpringGreen">87.0</span> |         | 55.5 / <span style="background-color: SpringGreen">72.8</span> |         | 58.6 / <span style="background-color: SpringGreen">76.1</span> |
 | Mistral-7B-Inst. / Mistral-7B-Inst. [2]                                     |         | 0-shot       |         | 67.3 / <span style="background-color: SpringGreen">70.6</span> |         | 61.8 / <span style="background-color: Apricot">56.7</span> |         | 53.8 / <span style="background-color: SpringGreen">61.7</span> |         | 60.1 / <span style="background-color: SpringGreen">63.0</span> |
-| GPT-4 / Gemini [1]                                           |         | 0-shot       |         | 77.5 /                  |         | 94.8 /                    |         | 77.5 /                    |         | 83.3 /                   |
+| GPT-4 [1] / Gemini                                               |         | 0-shot       |         | 77.5 / 76.6                  |         | 94.8 / 92.6                   |         | 77.5 / <span style="background-color: SpringGreen">77.7</span>                   |         | 83.3 / 82.3                  |
 
 ### Reproduced Methods with Fine-Tuning
 
