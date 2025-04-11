@@ -188,19 +188,19 @@ TO:DO
 
 ## Citation
 
-TO:DO
-
 ```
-@inproceedings{,
-  author =    {},
-  title =     {},
-  booktitle = {},
-  series =    {},
-  pages =     {}
-  year =      {},
-  doi =       {},
-  publisher = {}
+@inproceedings{10.1007/978-3-031-88717-8_5,
+	title        = {A Reproducibility Study on Consistent LLM Reasoning for Natural Language Inference over Clinical Trials},
+	author       = {Guimar{\~a}es, Artur and Magalh{\~a}es, Jo{\~a}o and Martins, Bruno},
+	year         = 2025,
+	booktitle    = {Advances in Information Retrieval},
+	publisher    = {Springer Nature Switzerland},
+	address      = {Cham},
+	pages        = {48--63},
+	isbn         = {978-3-031-88717-8},
+	editor       = {Hauff, Claudia and Macdonald, Craig and Jannach, Dietmar and Kazai, Gabriella and Nardini, Franco Maria and Pinelli, Fabio and Silvestri, Fabrizio and Tonellotto, Nicola},
 }
+
 ```
 
 ## Contact
